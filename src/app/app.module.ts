@@ -9,6 +9,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 import { HeroComponent } from './hero/hero.component';
 import { PartnerComponent } from './partner/partner.component';
 import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AboutComponent } from './about/about.component';
     SafeHtmlPipe,
     HeroComponent,
     PartnerComponent,
-    AboutComponent
+    AboutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
