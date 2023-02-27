@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
+import { HeroComponent } from './hero/hero.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    HeroComponent
   ],
   imports: [
     BrowserModule,

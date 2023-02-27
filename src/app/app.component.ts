@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // logo = '../assets/logo-1.svg';
   // logo = '../assets/logo-2.svg';
-  logo = '../assets/logo-current-clean.png';
+  logo = '../assets/logo-current.svg';
+  logoDark = '../assets/logo-current-dark.svg';
 }
