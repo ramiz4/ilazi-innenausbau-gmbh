@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { HeroComponent } from './hero/hero.component';
 import { PartnerComponent } from './partner/partner.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PartnerComponent } from './partner/partner.component';
     FooterComponent,
     SafeHtmlPipe,
     HeroComponent,
-    PartnerComponent
+    PartnerComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
