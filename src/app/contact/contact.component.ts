@@ -7,5 +7,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent {
+  privacyPolicyAgreed = false;
 
+  togglePrivacyPolicyAgreement() {
+    this.privacyPolicyAgreed = !this.privacyPolicyAgreed;
+  }
 }

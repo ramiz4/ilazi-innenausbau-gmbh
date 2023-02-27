@@ -28,4 +28,10 @@ export class HeaderComponent {
     }
     this.scrolled = false;
   }
+
+  themeMode: string | undefined;
+
+  onChangeTheme() {
+    this.themeMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+  }
 }
