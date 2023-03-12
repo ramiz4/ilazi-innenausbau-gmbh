@@ -43,7 +43,7 @@
         </span>
     </button>
     <div *ngIf="isOpen" #menu
-        class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-white shadow-xl dark:bg-neutral-800">
+        class="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-white shadow-xl dark:bg-neutral-900">
         <a (click)="setTheme('light')"
             class="flex items-center p-3 text-sm text-neutral-600 capitalize transition-colors duration-300 transform dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
             [class.text-red-500]="mode === 'light'">

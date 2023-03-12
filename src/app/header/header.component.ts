@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-header',
@@ -7,18 +8,14 @@ import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angula
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  @Input() logo: string = '';
+  @Input() logo = '';
 
-  mainMenuItems = [
-    { id: 'about-us', title: 'Über uns', href: '/about' },
-    { id: 'services', title: 'Leistungen', href: '/services' },
-    { id: 'lorem-1', title: 'Lorem #1', href: '/lorem-1' },
-    { id: 'lorem-2', title: 'Lorem #2', href: '/lorem-2' }
-  ]
-
+  mainMenuItems = this.appService.mainMenuItems;
   isMenuOpened = false;
-
   scrolled = false;
+  themeMode: string | undefined;
+
+  constructor(private appService: AppService) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -29,7 +26,6 @@ export class HeaderComponent {
     this.scrolled = false;
   }
 
-  themeMode: string | undefined;
 
   onChangeTheme() {
     this.themeMode = document.body.classList.contains('dark') ? 'dark' : 'light';

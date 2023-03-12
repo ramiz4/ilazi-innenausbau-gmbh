@@ -1,5 +1,5 @@
-<div class="flex justify-between items-center sticky top-0 w-full z-10 px-6 py-4"
-  [ngClass]="{'bg-white shadow-md dark:bg-neutral-900': scrolled}" [class.hidden]="isMenuOpened">
+<div class="flex backdrop-blur-md bg-white/30 justify-between items-center sticky top-0 w-full z-10 px-6 py-4 dark:bg-red-900/30"
+  [ngClass]="{'shadow-xl': scrolled}" [class.hidden]="isMenuOpened">
   <div class="flex items-center justify-between">
     <a routerLink="/">
       <span class="sr-only">Ilazi Innenausbau GmbH</span>
@@ -8,8 +8,10 @@
   </div>
   <nav class="flex justify-between items-center gap-8" aria-label="Global">
     <div class="hidden lg:flex lg:gap-x-12 lg:justify-center">
-      <ng-container *ngFor="let item of mainMenuItems">
-        <a [routerLink]="item.href" class="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">{{item.title}}</a>
+      <ng-container *ngFor="let menuItem of mainMenuItems">
+        <a [routerLink]="menuItem.href" [fragment]="menuItem.id" class="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
+          {{menuItem.text}}
+        </a>
       </ng-container>
     </div>
     <app-theme-menu class="justify-end" (changed)="onChangeTheme()"></app-theme-menu>
@@ -28,7 +30,7 @@
 
 <!-- Mobile menu, show/hide based on menu open state. -->
 <div role="dialog" aria-modal="true">
-  <div focus="true" class="fixed hidden inset-0 z-10 overflow-y-auto bg-white px-6 py-4 lg:hidden dark:bg-neutral-900"
+  <div focus="true" class="fixed h-fit inset-0 z-10 overflow-y-auto bg-white shadow-md px-6 py-4 lg:hidden dark:bg-neutral-900"
     [class.hidden]="!isMenuOpened">
     <div class="flex items-center justify-between">
       <a routerLink="/">
@@ -46,9 +48,11 @@
     <div class="mt-6 flow-root">
       <div class="-my-6 divide-y divide-zinc-500/10">
         <div class="space-y-2 py-6">
-          <ng-container *ngFor="let item of mainMenuItems">
-            <a [routerLink]="item.href"
-              class="-mx-3 block py-2 px-3 text-base font-semibold leading-7 text-zinc-900 hover:bg-zinc-400/10 dark:text-zinc-50">{{item.title}}</a>
+          <ng-container *ngFor="let menuItem of mainMenuItems">
+            <a [routerLink]="menuItem.href" [fragment]="menuItem.id"
+              class="-mx-3 block py-2 px-3 text-base font-semibold leading-7 text-zinc-900 hover:bg-zinc-400/10 dark:text-zinc-50">
+              {{menuItem.text}}
+            </a>
           </ng-container>
         </div>
       </div>

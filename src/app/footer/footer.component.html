@@ -10,9 +10,9 @@
         <h2 class="mb-6 text-sm font-semibold text-zinc-900 uppercase dark:text-white">
           {{ section.title }}
         </h2>
-        <ul class="text-zinc-600 dark:text-zinc-400">
+        <ul class="text-zinc-600 dark:text-zinc-200">
           <li class="mb-4" *ngFor="let menuItem of section.menuItems">
-            <a *ngIf="menuItem.type === 'intern'" [routerLink]="menuItem.href" class="hover:underline">
+            <a *ngIf="menuItem.type === 'main' || menuItem.type === 'intern'" [routerLink]="[menuItem.href]" [fragment]="menuItem.id" class="hover:underline">
               {{ menuItem.text }}
             </a>
             <a *ngIf="menuItem.type === 'extern'" [href]="menuItem.href" class="hover:underline">
@@ -25,7 +25,7 @@
   </div>
   <hr class="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
   <div class="sm:flex sm:items-center sm:justify-between">
-    <span class="text-sm text-zinc-500 sm:text-center dark:text-zinc-400">
+    <span class="text-sm text-zinc-500 sm:text-center dark:text-zinc-200">
       © 2023 <a routerLink="/" class="hover:underline">Ilazi Innenausbau GmbH</a>. All Rights Reserved.
     </span>
     <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
