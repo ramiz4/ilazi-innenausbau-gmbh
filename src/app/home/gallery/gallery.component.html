@@ -1,0 +1,16 @@
+<div class="relative">
+  <section class="bg-white dark:bg-zinc-900">
+    <div class="py-12 lg:py-14 xl:py-20">
+      <div class="container mx-auto mb-10">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl dark:text-zinc-50">Gallery</h2>
+      </div>
+      <div class="gallery-carousel container mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
+          <div *ngFor="let image of images" class="relative overflow-hidden aspect-w-16 aspect-h-9 max-h-48">
+            <img [src]="image" decoding="async" data-nimg="fill" class="w-full h-full object-center object-cover rounded-lg md:rounded-xl lg:rounded-2xl" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -6,6 +6,8 @@ import { HeroComponent } from './hero/hero.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { PartnerComponent } from './partner/partner.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { ReferencesComponent } from './references/references.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { PartnerComponent } from './partner/partner.component';
     PartnerComponent,
     AboutComponent,
     ContactComponent,
+    GalleryComponent,
+    ReferencesComponent,
   ],
   imports: [CommonModule, HomeRoutingModule],
 })
