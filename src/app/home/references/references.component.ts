@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Testimonial {
   quote: string;
@@ -80,7 +81,8 @@ interface Testimonial {
       }
     `,
     ],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class ReferencesComponent implements OnInit, OnDestroy {
   currentTestimonialIndex = 0;

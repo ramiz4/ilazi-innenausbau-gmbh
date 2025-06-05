@@ -7,12 +7,14 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-theme-menu',
     templateUrl: './theme-menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class ThemeMenuComponent {
   isOpen = false;

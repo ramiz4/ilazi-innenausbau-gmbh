@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FooterSection } from '../app.model';
 import { AppService } from '../app.service';
+import { SafeHtmlPipe } from '../safe-html.pipe';
 
 @Component({
     selector: 'app-footer',
     templateUrl: './footer.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule, SafeHtmlPipe]
 })
 export class FooterComponent {
   @Input() logo = '';

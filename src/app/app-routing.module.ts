@@ -5,22 +5,19 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    loadComponent: () => import('./home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'career',
-    loadChildren: () =>
-      import('./career/career.module').then((m) => m.CareerModule),
+    loadComponent: () => import('./career/career.component').then((m) => m.CareerComponent),
   },
   {
     path: 'imprint',
-    loadChildren: () =>
-      import('./imprint/imprint.module').then((m) => m.ImprintModule),
+    loadComponent: () => import('./imprint/imprint.component').then((m) => m.ImprintComponent),
   },
   {
     path: 'privacy',
-    loadChildren: () =>
-      import('./privacy/privacy.module').then((m) => m.PrivacyModule),
+    loadComponent: () => import('./privacy/privacy.component').then((m) => m.PrivacyComponent),
   },
   {
     path: '**',

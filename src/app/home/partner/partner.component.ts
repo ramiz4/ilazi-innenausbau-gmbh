@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Partner {
   id: number;
@@ -14,7 +15,8 @@ interface Partner {
     selector: 'app-partner',
     templateUrl: './partner.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule]
 })
 export class PartnerComponent {
   partners: Partner[] = [

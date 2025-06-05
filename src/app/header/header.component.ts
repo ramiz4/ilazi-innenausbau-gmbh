@@ -4,13 +4,17 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AppService } from '../app.service';
+import { ThemeMenuComponent } from './theme-menu/theme-menu.component';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule, ThemeMenuComponent]
 })
 export class HeaderComponent {
   @Input() logo = '';
