@@ -10,8 +10,7 @@ describe('FooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SafeHtmlPipe],
-      imports: [RouterTestingModule, FooterComponent],
+      imports: [RouterTestingModule, FooterComponent, SafeHtmlPipe],
       providers: [AppService],
     }).compileComponents();
 
