@@ -14,8 +14,7 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ContactComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, ContactComponent],
       providers: [
         EmailService,
         provideHttpClient(withInterceptorsFromDi()),

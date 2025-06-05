@@ -8,7 +8,7 @@ describe('ThemeMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ThemeMenuComponent],
+      imports: [ThemeMenuComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeMenuComponent);

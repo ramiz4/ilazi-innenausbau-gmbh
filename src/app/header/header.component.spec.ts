@@ -10,8 +10,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HeaderComponent],
       providers: [AppService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
