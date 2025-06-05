@@ -1,6 +1,6 @@
 <section class="bg-red-900 text-white py-12 px-6 sm:py-16 lg:px-8">
   <div
-    class="container mx-auto pt-12 lg:pt-14 xl:pt-20 testimonials-carousel pb-12 lg:pb-14 xl:pb-20"
+    class="container mx-auto pt-4 lg:pt-6 xl:pt-8 testimonials-carousel pb-4 lg:pb-6 xl:pb-8"
   >
     <!-- Header -->
     <div class="text-center mb-12">
@@ -13,48 +13,47 @@
     </div>
 
     <!-- Testimonial Display -->
-    <div class="flex h-full my-auto overflow-hidden">
-      <div class="max-w-5xl w-full mx-auto">
-        <!-- Testimonials Container with Slide Animation -->
+    <div class="flex h-full my-auto">
+      <div
+        class="max-w-5xl flex flex-col gap-6 justify-center text-center mx-auto items-center min-h-[300px]"
+      >
+        <!-- Quote -->
         <div
-          class="flex transition-transform duration-700 ease-in-out"
-          [style.transform]="
-            'translateX(-' + currentTestimonialIndex * 100 + '%)'
-          "
+          class="relative transition-all duration-500 ease-in-out transform"
+          [class.opacity-0]="isTransitioning"
+          [class.translate-y-4]="isTransitioning"
+          [class.scale-95]="isTransitioning"
         >
-          <!-- Individual Testimonial Slides -->
-          <div
-            *ngFor="let testimonial of testimonials; let i = index"
-            class="w-full flex-shrink-0 flex flex-col gap-6 justify-center text-center items-center px-4"
+          <svg
+            class="absolute -top-4 -left-6 w-8 h-8 text-red-300 opacity-50 transition-opacity duration-500"
+            [class.opacity-20]="isTransitioning"
+            fill="currentColor"
+            viewBox="0 0 24 24"
           >
-            <!-- Quote -->
-            <div class="relative">
-              <svg
-                class="absolute -top-4 -left-6 w-8 h-8 text-red-300 opacity-50"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"
-                />
-              </svg>
-              <h3
-                class="text-xl lg:text-2xl xl:text-h3 !font-medium leading-relaxed px-8 animate-fade-in"
-              >
-                {{ testimonial.quote }}
-              </h3>
-            </div>
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"
+            />
+          </svg>
+          <h3
+            class="text-xl lg:text-2xl xl:text-h3 !font-medium leading-relaxed px-8"
+          >
+            {{ currentTestimonial.quote }}
+          </h3>
+        </div>
 
-            <!-- Author Info -->
-            <div class="flex flex-col gap-2 animate-fade-in-delay">
-              <p class="text-sm lg:text-body xl:text-2xl font-semibold">
-                {{ testimonial.author }}
-              </p>
-              <p class="text-xs lg:text-sm xl:text-lg opacity-80">
-                {{ testimonial.location }} • {{ testimonial.project }}
-              </p>
-            </div>
-          </div>
+        <!-- Author Info -->
+        <div
+          class="flex flex-col gap-2 transition-all duration-500 ease-in-out transform delay-100"
+          [class.opacity-0]="isTransitioning"
+          [class.translate-y-4]="isTransitioning"
+          [class.scale-95]="isTransitioning"
+        >
+          <p class="text-sm lg:text-body xl:text-2xl font-semibold">
+            {{ currentTestimonial.author }}
+          </p>
+          <p class="text-xs lg:text-sm xl:text-lg opacity-80">
+            {{ currentTestimonial.location }} • {{ currentTestimonial.project }}
+          </p>
         </div>
       </div>
     </div>
@@ -119,7 +118,11 @@
 
     <!-- Testimonial Counter -->
     <div class="text-center mt-6">
-      <p class="text-sm opacity-70 transition-all duration-300 animate-fade-in">
+      <p
+        class="text-sm opacity-70 transition-all duration-300 transform"
+        [class.opacity-0]="isTransitioning"
+        [class.scale-95]="isTransitioning"
+      >
         {{ currentTestimonialIndex + 1 }} von {{ testimonials.length }}
       </p>
     </div>

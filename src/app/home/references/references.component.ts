@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -85,6 +86,9 @@ export class ReferencesComponent implements OnInit, OnDestroy {
   private autoRotateInterval?: number;
   private readonly AUTO_ROTATE_DELAY = 6000; // 6 seconds
   isAnimating = false;
+  isTransitioning = false;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   testimonials: Testimonial[] = [
     {
@@ -134,23 +138,29 @@ export class ReferencesComponent implements OnInit, OnDestroy {
 
   nextTestimonial(): void {
     if (this.isAnimating) return;
-    this.currentTestimonialIndex =
-      (this.currentTestimonialIndex + 1) % this.testimonials.length;
+    this.animateTransition(() => {
+      this.currentTestimonialIndex =
+        (this.currentTestimonialIndex + 1) % this.testimonials.length;
+    });
     this.restartAutoRotate();
   }
 
   previousTestimonial(): void {
     if (this.isAnimating) return;
-    this.currentTestimonialIndex =
-      this.currentTestimonialIndex === 0
-        ? this.testimonials.length - 1
-        : this.currentTestimonialIndex - 1;
+    this.animateTransition(() => {
+      this.currentTestimonialIndex =
+        this.currentTestimonialIndex === 0
+          ? this.testimonials.length - 1
+          : this.currentTestimonialIndex - 1;
+    });
     this.restartAutoRotate();
   }
 
   setTestimonial(index: number): void {
     if (this.isAnimating || index === this.currentTestimonialIndex) return;
-    this.currentTestimonialIndex = index;
+    this.animateTransition(() => {
+      this.currentTestimonialIndex = index;
+    });
     this.restartAutoRotate();
   }
 
@@ -158,10 +168,33 @@ export class ReferencesComponent implements OnInit, OnDestroy {
     return this.testimonials[this.currentTestimonialIndex];
   }
 
+  private animateTransition(changeCallback: () => void): void {
+    this.isAnimating = true;
+    this.isTransitioning = true;
+    this.cdr.markForCheck(); // Trigger change detection for fade-out
+
+    // Wait for fade out animation to complete, then change content
+    setTimeout(() => {
+      changeCallback();
+      this.isTransitioning = false;
+      this.cdr.markForCheck(); // Trigger change detection for content change and fade-in
+
+      // Wait for fade in animation to complete
+      setTimeout(() => {
+        this.isAnimating = false;
+        this.cdr.markForCheck(); // Trigger change detection for animation completion
+      }, 500);
+    }, 250);
+  }
+
   private startAutoRotate(): void {
     this.autoRotateInterval = window.setInterval(() => {
-      this.currentTestimonialIndex =
-        (this.currentTestimonialIndex + 1) % this.testimonials.length;
+      if (!this.isAnimating) {
+        this.animateTransition(() => {
+          this.currentTestimonialIndex =
+            (this.currentTestimonialIndex + 1) % this.testimonials.length;
+        });
+      }
     }, this.AUTO_ROTATE_DELAY);
   }
 
