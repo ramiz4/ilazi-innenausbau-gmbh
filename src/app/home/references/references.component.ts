@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 
 interface Testimonial {
   quote: string;
@@ -11,43 +16,112 @@ interface Testimonial {
   selector: 'app-references',
   templateUrl: './references.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInDelay {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .animate-fade-in-delay {
+        animation: fadeInDelay 0.8s ease-out 0.2s both;
+      }
+
+      .testimonials-carousel {
+        position: relative;
+      }
+
+      .testimonials-carousel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(185, 28, 28, 0.1) 0%,
+          rgba(185, 28, 28, 0.05) 100%
+        );
+        pointer-events: none;
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 0.1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+    `,
+  ],
 })
 export class ReferencesComponent implements OnInit, OnDestroy {
   currentTestimonialIndex = 0;
   private autoRotateInterval?: number;
   private readonly AUTO_ROTATE_DELAY = 6000; // 6 seconds
+  isAnimating = false;
 
   testimonials: Testimonial[] = [
     {
-      quote: 'Ich war super zufrieden mit der Arbeit, die das Team von Ilazi Innenausbau GmbH in meiner Praxis in Spreitenbach geleistet hat. Von der Beratung bis zur Umsetzung war alles perfekt.',
+      quote:
+        'Ich war super zufrieden mit der Arbeit, die das Team von Ilazi Innenausbau GmbH in meiner Praxis in Spreitenbach geleistet hat. Von der Beratung bis zur Umsetzung war alles perfekt.',
       author: 'Martina D.',
       location: 'Spreitenbach, Schweiz',
-      project: 'Praxisrenovierung'
+      project: 'Praxisrenovierung',
     },
     {
-      quote: 'Die Renovierung unserer Büroräume war ein voller Erfolg. Das Team hat professionell und sauber gearbeitet, der Zeitplan wurde eingehalten und das Ergebnis übertrifft unsere Erwartungen.',
+      quote:
+        'Die Renovierung unserer Büroräume war ein voller Erfolg. Das Team hat professionell und sauber gearbeitet, der Zeitplan wurde eingehalten und das Ergebnis übertrifft unsere Erwartungen.',
       author: 'Stefan M.',
       location: 'Zürich, Schweiz',
-      project: 'Bürorenovierung'
+      project: 'Bürorenovierung',
     },
     {
-      quote: 'Unser Badezimmer wurde komplett umgestaltet - moderne Fliesen, neue Sanitäranlagen und durchdachte Beleuchtung. Wir sind begeistert von der Qualität und dem Service!',
+      quote:
+        'Unser Badezimmer wurde komplett umgestaltet - moderne Fliesen, neue Sanitäranlagen und durchdachte Beleuchtung. Wir sind begeistert von der Qualität und dem Service!',
       author: 'Familie Weber',
       location: 'Baden, Schweiz',
-      project: 'Badezimmersanierung'
+      project: 'Badezimmersanierung',
     },
     {
-      quote: 'Das Restaurant wurde termingerecht und im Budget renoviert. Die Handwerker waren sehr professionell und haben auch auf unsere speziellen Wünsche eingegangen.',
+      quote:
+        'Das Restaurant wurde termingerecht und im Budget renoviert. Die Handwerker waren sehr professionell und haben auch auf unsere speziellen Wünsche eingegangen.',
       author: 'Marco P.',
       location: 'Winterthur, Schweiz',
-      project: 'Restaurantrenovierung'
+      project: 'Restaurantrenovierung',
     },
     {
-      quote: 'Vom ersten Beratungsgespräch bis zur finalen Abnahme - alles lief reibungslos. Die Küche unserer Träume ist Realität geworden. Vielen Dank für die hervorragende Arbeit!',
+      quote:
+        'Vom ersten Beratungsgespräch bis zur finalen Abnahme - alles lief reibungslos. Die Küche unserer Träume ist Realität geworden. Vielen Dank für die hervorragende Arbeit!',
       author: 'Anna und Thomas K.',
       location: 'Aarau, Schweiz',
-      project: 'Küchenumbau'
-    }
+      project: 'Küchenumbau',
+    },
   ];
 
   ngOnInit(): void {
@@ -59,18 +133,23 @@ export class ReferencesComponent implements OnInit, OnDestroy {
   }
 
   nextTestimonial(): void {
-    this.currentTestimonialIndex = (this.currentTestimonialIndex + 1) % this.testimonials.length;
+    if (this.isAnimating) return;
+    this.currentTestimonialIndex =
+      (this.currentTestimonialIndex + 1) % this.testimonials.length;
     this.restartAutoRotate();
   }
 
   previousTestimonial(): void {
-    this.currentTestimonialIndex = this.currentTestimonialIndex === 0 
-      ? this.testimonials.length - 1 
-      : this.currentTestimonialIndex - 1;
+    if (this.isAnimating) return;
+    this.currentTestimonialIndex =
+      this.currentTestimonialIndex === 0
+        ? this.testimonials.length - 1
+        : this.currentTestimonialIndex - 1;
     this.restartAutoRotate();
   }
 
   setTestimonial(index: number): void {
+    if (this.isAnimating || index === this.currentTestimonialIndex) return;
     this.currentTestimonialIndex = index;
     this.restartAutoRotate();
   }
@@ -81,7 +160,8 @@ export class ReferencesComponent implements OnInit, OnDestroy {
 
   private startAutoRotate(): void {
     this.autoRotateInterval = window.setInterval(() => {
-      this.currentTestimonialIndex = (this.currentTestimonialIndex + 1) % this.testimonials.length;
+      this.currentTestimonialIndex =
+        (this.currentTestimonialIndex + 1) % this.testimonials.length;
     }, this.AUTO_ROTATE_DELAY);
   }
 
