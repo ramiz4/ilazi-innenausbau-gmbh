@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-career',
-  templateUrl: './career.component.html',
+    selector: 'app-career',
+    templateUrl: './career.component.html',
+    standalone: false
 })
 export class CareerComponent {}

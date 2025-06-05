@@ -3,9 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EmailService } from './email.service';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-contact',
+    templateUrl: './contact.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ContactComponent {
   privacyPolicyAgreed = false;

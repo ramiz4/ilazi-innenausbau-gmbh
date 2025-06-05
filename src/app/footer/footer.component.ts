@@ -3,9 +3,10 @@ import { FooterSection } from '../app.model';
 import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-footer',
+    templateUrl: './footer.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FooterComponent {
   @Input() logo = '';

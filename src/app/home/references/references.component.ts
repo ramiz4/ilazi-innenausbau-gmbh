@@ -14,11 +14,11 @@ interface Testimonial {
 }
 
 @Component({
-  selector: 'app-references',
-  templateUrl: './references.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
+    selector: 'app-references',
+    templateUrl: './references.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -79,7 +79,8 @@ interface Testimonial {
         }
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class ReferencesComponent implements OnInit, OnDestroy {
   currentTestimonialIndex = 0;

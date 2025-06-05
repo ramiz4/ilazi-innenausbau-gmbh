@@ -11,9 +11,10 @@ interface Partner {
 }
 
 @Component({
-  selector: 'app-partner',
-  templateUrl: './partner.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-partner',
+    templateUrl: './partner.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PartnerComponent {
   partners: Partner[] = [

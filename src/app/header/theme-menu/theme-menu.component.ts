@@ -9,9 +9,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-theme-menu',
-  templateUrl: './theme-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-theme-menu',
+    templateUrl: './theme-menu.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThemeMenuComponent {
   isOpen = false;
