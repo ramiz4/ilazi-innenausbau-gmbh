@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
@@ -22,12 +25,7 @@ import { ReferencesComponent } from './references/references.component';
     GalleryComponent,
     ReferencesComponent,
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
-  providers: [EmailService],
+  imports: [CommonModule, HomeRoutingModule, ReactiveFormsModule],
+  providers: [EmailService, provideHttpClient(withInterceptorsFromDi())],
 })
 export class HomeModule {}
