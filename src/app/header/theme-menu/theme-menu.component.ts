@@ -1,9 +1,17 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-theme-menu',
   templateUrl: './theme-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeMenuComponent {
   isOpen = false;
@@ -21,7 +29,10 @@ export class ThemeMenuComponent {
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if(!this.toggleButton.nativeElement.contains(event.target) && !this.menu?.nativeElement.contains(event.target)) {
+    if (
+      !this.toggleButton.nativeElement.contains(event.target) &&
+      !this.menu?.nativeElement.contains(event.target)
+    ) {
       this.isOpen = false;
     }
   }

@@ -3,8 +3,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-references',
   templateUrl: './references.component.html',
-  styleUrls: ['./references.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReferencesComponent {
-}
+export class ReferencesComponent {}

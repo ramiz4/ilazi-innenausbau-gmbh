@@ -1,27 +1,50 @@
-<div class="flex backdrop-blur-md bg-white/30 justify-between items-center sticky top-0 w-full z-10 px-6 py-4 dark:bg-red-900/30"
-  [ngClass]="{'shadow-xl': scrolled}" [class.hidden]="isMenuOpened">
+<div
+  class="flex backdrop-blur-md bg-white/30 justify-between items-center sticky top-0 w-full z-10 px-6 py-4 dark:bg-red-900/30"
+  [ngClass]="{ 'shadow-xl': scrolled }"
+  [class.hidden]="isMenuOpened"
+>
   <div class="flex items-center justify-between">
     <a routerLink="/">
       <span class="sr-only">Ilazi Innenausbau GmbH</span>
-      <img class="h-16 md:h-20" [src]="logo" alt="Ilazi Innenausbau GmbH">
+      <img class="h-16 md:h-20" [src]="logo" alt="Ilazi Innenausbau GmbH" />
     </a>
   </div>
   <nav class="flex justify-between items-center gap-8" aria-label="Global">
     <div class="hidden lg:flex lg:gap-x-12 lg:justify-center">
       <ng-container *ngFor="let menuItem of mainMenuItems">
-        <a [routerLink]="menuItem.href" [fragment]="menuItem.id" class="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
-          {{menuItem.text}}
+        <a
+          [routerLink]="menuItem.href"
+          [fragment]="menuItem.id"
+          class="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50"
+        >
+          {{ menuItem.text }}
         </a>
       </ng-container>
     </div>
-    <app-theme-menu class="justify-end" (changed)="onChangeTheme()"></app-theme-menu>
+    <app-theme-menu
+      class="justify-end"
+      (changed)="onChangeTheme()"
+    ></app-theme-menu>
     <div class="flex justify-end lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center p-2.5 text-zinc-700 dark:text-zinc-50"
-      (click)="isMenuOpened = !isMenuOpened">
-      <span class="sr-only">Open menu</span>
-        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-        aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      <button
+        type="button"
+        class="-m-2.5 inline-flex items-center justify-center p-2.5 text-zinc-700 dark:text-zinc-50"
+        (click)="isMenuOpened = !isMenuOpened"
+      >
+        <span class="sr-only">Open menu</span>
+        <svg
+          class="h-10 w-10"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
         </svg>
       </button>
     </div>
@@ -30,18 +53,35 @@
 
 <!-- Mobile menu, show/hide based on menu open state. -->
 <div role="dialog" aria-modal="true">
-  <div focus="true" class="fixed h-fit inset-0 z-10 overflow-y-auto bg-white shadow-md px-6 py-4 lg:hidden dark:bg-neutral-900"
-    [class.hidden]="!isMenuOpened">
+  <div
+    focus="true"
+    class="fixed h-fit inset-0 z-10 overflow-y-auto bg-white shadow-md px-6 py-4 lg:hidden dark:bg-neutral-900"
+    [class.hidden]="!isMenuOpened"
+  >
     <div class="flex items-center justify-between">
       <a routerLink="/">
         <span class="sr-only">Ilazi Innenausbau GmbH</span>
-        <img class="h-16 md:h-20" [src]="logo" alt="Ilazi Innenausbau GmbH">
+        <img class="h-16 md:h-20" [src]="logo" alt="Ilazi Innenausbau GmbH" />
       </a>
-      <button type="button" class="-m-2.5 p-2.5 text-zinc-700 dark:text-zinc-50" (click)="isMenuOpened = !isMenuOpened">
+      <button
+        type="button"
+        class="-m-2.5 p-2.5 text-zinc-700 dark:text-zinc-50"
+        (click)="isMenuOpened = !isMenuOpened"
+      >
         <span class="sr-only">Close menu</span>
-        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-          aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <svg
+          class="h-10 w-10"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
     </div>
@@ -49,9 +89,12 @@
       <div class="-my-6 divide-y divide-zinc-500/10">
         <div class="space-y-2 py-6">
           <ng-container *ngFor="let menuItem of mainMenuItems">
-            <a [routerLink]="menuItem.href" [fragment]="menuItem.id"
-              class="-mx-3 block py-2 px-3 text-base font-semibold leading-7 text-zinc-900 hover:bg-zinc-400/10 dark:text-zinc-50">
-              {{menuItem.text}}
+            <a
+              [routerLink]="menuItem.href"
+              [fragment]="menuItem.id"
+              class="-mx-3 block py-2 px-3 text-base font-semibold leading-7 text-zinc-900 hover:bg-zinc-400/10 dark:text-zinc-50"
+            >
+              {{ menuItem.text }}
             </a>
           </ng-container>
         </div>

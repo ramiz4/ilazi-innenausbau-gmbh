@@ -8,6 +8,6 @@ export class AppService {
     { type: 'main', id: 'references', text: 'Referenzen', href: '/' },
     { type: 'main', id: 'gallery', text: 'Gallerie', href: '/' },
     { type: 'main', id: 'partner', text: 'Partner', href: '/' },
-    { type: 'main', id: 'contact', text: 'Kontakt', href: '/' }
-  ]
+    { type: 'main', id: 'contact', text: 'Kontakt', href: '/' },
+  ];
 }

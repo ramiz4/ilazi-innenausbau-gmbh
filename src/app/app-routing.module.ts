@@ -11,8 +11,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./career/career.module').then((m) => m.CareerModule),
   },
-  { path: 'imprint', loadChildren: () => import('./imprint/imprint.module').then(m => m.ImprintModule) },
-  { path: 'privacy', loadChildren: () => import('./privacy/privacy.module').then(m => m.PrivacyModule) },
+  {
+    path: 'imprint',
+    loadChildren: () =>
+      import('./imprint/imprint.module').then((m) => m.ImprintModule),
+  },
+  {
+    path: 'privacy',
+    loadChildren: () =>
+      import('./privacy/privacy.module').then((m) => m.PrivacyModule),
+  },
 ];
 
 @NgModule({

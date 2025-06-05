@@ -1,11 +1,15 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  Input,
+} from '@angular/core';
 import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   @Input() logo = '';
@@ -26,8 +30,9 @@ export class HeaderComponent {
     this.scrolled = false;
   }
 
-
   onChangeTheme() {
-    this.themeMode = document.body.classList.contains('dark') ? 'dark' : 'light';
+    this.themeMode = document.body.classList.contains('dark')
+      ? 'dark'
+      : 'light';
   }
 }

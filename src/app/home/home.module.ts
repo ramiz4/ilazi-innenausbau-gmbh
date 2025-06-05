@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
@@ -10,7 +11,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { PartnerComponent } from './partner/partner.component';
 import { ReferencesComponent } from './references/references.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,10 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [
-    EmailService
-  ]
+  providers: [EmailService],
 })
 export class HomeModule {}

@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { ImprintRoutingModule } from './imprint-routing.module';
 import { ImprintComponent } from './imprint.component';
 
-
 @NgModule({
-  declarations: [
-    ImprintComponent
-  ],
-  imports: [
-    CommonModule,
-    ImprintRoutingModule
-  ]
+  declarations: [ImprintComponent],
+  imports: [CommonModule, ImprintRoutingModule],
 })
-export class ImprintModule { }
+export class ImprintModule {}

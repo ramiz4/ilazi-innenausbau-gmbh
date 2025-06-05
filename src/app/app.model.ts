@@ -9,5 +9,5 @@ export interface MenuItem {
 export interface FooterSection {
   id: string;
   title: string;
-  menuItems: MenuItem[]
+  menuItems: MenuItem[];
 }

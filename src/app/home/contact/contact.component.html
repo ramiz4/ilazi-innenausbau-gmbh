@@ -1,55 +1,100 @@
-<img class="w-full h-72 object-center object-cover"
-  src="https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/16/34308/22931@2x?access_token=pk.eyJ1IjoiZHVyYWJsZSIsImEiOiJjbGJjOHV1bHUwcjM5M3huOHdoZXdkdDRsIn0.geBkTZ4KBXWb669GQBr8rw" />
+<img
+  class="w-full h-72 object-center object-cover"
+  src="https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/16/34308/22931@2x?access_token=pk.eyJ1IjoiZHVyYWJsZSIsImEiOiJjbGJjOHV1bHUwcjM5M3huOHdoZXdkdDRsIn0.geBkTZ4KBXWb669GQBr8rw"
+/>
 
 <div class="container mx-auto bg-white dark:bg-neutral-900 mb-16">
   <div class="mb-8 px-6">
     <address class="font-thin mt-4 mb-8 dark:text-zinc-50">
       Boulevard Lilienthal 40, 8152 Opfikon Glattpark, Schweiz
     </address>
-    <h2 class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
+    <h2
+      class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50"
+    >
       Nehmen Sie Kontakt auf!
     </h2>
     <p class="mt-2 text-lg leading-8 text-zinc-600 dark:text-zinc-200">
       Kontaktieren Sie uns für alle Fragen rund um unseren Innenausbau-Service.
-      Unser freundliches und erfahrenes Team steht Ihnen jederzeit zur Verfügung und arbeitet mit Ihnen zusammen,
-      um maßgeschneiderte Lösungen für Ihr Projekt zu finden. Wir freuen uns auf Ihre Nachricht!
+      Unser freundliches und erfahrenes Team steht Ihnen jederzeit zur Verfügung
+      und arbeitet mit Ihnen zusammen, um maßgeschneiderte Lösungen für Ihr
+      Projekt zu finden. Wir freuen uns auf Ihre Nachricht!
     </p>
   </div>
 
   <div class="alert alert-danger" *ngIf="error">
-    {{error}}
+    {{ error }}
   </div>
 
-  <form class="px-6 contact-form" role="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-
-    <label for="name" class="block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
+  <form
+    class="px-6 contact-form"
+    role="form"
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <label
+      for="name"
+      class="block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50"
+    >
       Ihr Name <sup class="text-red-600">*</sup>
     </label>
     <div class="mt-2.5">
-      <input type="text" name="name" id="name" autocomplete="given-name" formControlName="name" required
-        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900">
+      <input
+        type="text"
+        name="name"
+        id="name"
+        autocomplete="given-name"
+        formControlName="name"
+        required
+        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900"
+      />
     </div>
 
-    <label for="email" class="mt-4 block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
+    <label
+      for="email"
+      class="mt-4 block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50"
+    >
       Ihre E-Mail-Adresse <sup class="text-red-600">*</sup>
     </label>
     <div class="mt-2.5">
-      <input type="email" name="email" id="email" autocomplete="email" pattern="[^ @]*@[^ @]*" class="form-control"
-        formControlName="email" required
-        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900">
-      <div *ngIf="email && email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+      <input
+        type="email"
+        name="email"
+        id="email"
+        autocomplete="email"
+        pattern="[^ @]*@[^ @]*"
+        class="form-control"
+        formControlName="email"
+        required
+        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900"
+      />
+      <div
+        *ngIf="email && email.invalid && (email.dirty || email.touched)"
+        class="alert alert-danger"
+      >
         <div *ngIf="email.errors?.['required']">
           E-Mail-Adresse ist erforderlich.
         </div>
       </div>
     </div>
 
-    <label for="message" class="mt-4 block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">Ihre
-      Nachricht</label>
+    <label
+      for="message"
+      class="mt-4 block text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50"
+      >Ihre Nachricht</label
+    >
     <div class="mt-2.5">
-      <textarea name="message" id="message" rows="4" formControlName="message" required
-        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900"></textarea>
-      <div *ngIf="message && message.invalid && (message.dirty || message.touched)" class="alert alert-danger">
+      <textarea
+        name="message"
+        id="message"
+        rows="4"
+        formControlName="message"
+        required
+        class="block w-full border-0 py-2 px-3.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6 dark:text-zinc-900"
+      ></textarea>
+      <div
+        *ngIf="message && message.invalid && (message.dirty || message.touched)"
+        class="alert alert-danger"
+      >
         <div *ngIf="message.errors?.['required']">
           Nachricht ist erforderlich.
         </div>
@@ -57,40 +102,68 @@
     </div>
 
     <div class="mt-4 flex items-center mb-4">
-      <input id="default-checkbox" type="checkbox" value="" formControlName="policy"
-        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-      <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-        Ich habe die <a href="/privacy">Datenschutzerklärung</a> zur Kenntnis genommen. Ich stimme zu, dass meine Angaben und
-        Daten zur Beantwortung meiner Anfrage elektronisch erhoben und gespeichert werden (Pflichtfeld).
+      <input
+        id="default-checkbox"
+        type="checkbox"
+        value=""
+        formControlName="policy"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <label
+        for="default-checkbox"
+        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      >
+        Ich habe die <a href="/privacy">Datenschutzerklärung</a> zur Kenntnis
+        genommen. Ich stimme zu, dass meine Angaben und Daten zur Beantwortung
+        meiner Anfrage elektronisch erhoben und gespeichert werden
+        (Pflichtfeld).
       </label>
     </div>
 
-    <div *ngIf="policy && policy.invalid && (policy.dirty || policy.touched)"
-      class="font-thin mt-4 mb-8 text-red-600">
+    <div
+      *ngIf="policy && policy.invalid && (policy.dirty || policy.touched)"
+      class="font-thin mt-4 mb-8 text-red-600"
+    >
       <div *ngIf="policy.errors?.['required']">
         Datenschutzerklärung muss zugestimmt werden.
       </div>
     </div>
 
     <p class="font-thin mt-4 mb-8 dark:text-zinc-50">
-      Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail an info@ilazi-ausbau.ch widerrufen.
+      Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail
+      an info&#64;ilazi-ausbau.ch widerrufen.
     </p>
 
-    <div *ngIf="sent" class="flex p-4 m-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
-      <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+    <div
+      *ngIf="sent"
+      class="flex p-4 m-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+      role="alert"
+    >
+      <svg
+        aria-hidden="true"
+        class="flex-shrink-0 inline w-5 h-5 mr-3"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
       <span class="sr-only">Info</span>
-      <div>
-        E-Mail wurde erfolgreich versandt!
-      </div>
+      <div>E-Mail wurde erfolgreich versandt!</div>
     </div>
 
     <div class="mt-10">
-      <button type="submit"
+      <button
+        type="submit"
         class="block w-full bg-red-600 px-6 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-        [disabled]="!contactForm.valid">
+        [disabled]="!contactForm.valid"
+      >
         Absenden
       </button>
     </div>
-
   </form>
 </div>

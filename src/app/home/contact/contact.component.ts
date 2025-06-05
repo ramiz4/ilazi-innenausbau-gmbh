@@ -5,8 +5,7 @@ import { EmailService } from './email.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent {
   privacyPolicyAgreed = false;
@@ -15,7 +14,7 @@ export class ContactComponent {
     name: ['', [Validators.required]],
     email: ['', [Validators.required]],
     message: ['', [Validators.required]],
-    policy: [false, Validators.requiredTrue]
+    policy: [false, Validators.requiredTrue],
   });
 
   error?: string;
@@ -25,19 +24,26 @@ export class ContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private emailService: EmailService
-  ) { }
+  ) {}
 
-  get name() { return this.contactForm.get('name'); }
-  get email() { return this.contactForm.get('email'); }
-  get message() { return this.contactForm.get('message'); }
-  get policy() { return this.contactForm.get('policy'); }
+  get name() {
+    return this.contactForm.get('name');
+  }
+  get email() {
+    return this.contactForm.get('email');
+  }
+  get message() {
+    return this.contactForm.get('message');
+  }
+  get policy() {
+    return this.contactForm.get('policy');
+  }
 
   togglePrivacyPolicyAgreement() {
     this.privacyPolicyAgreed = !this.privacyPolicyAgreed;
   }
 
   onSubmit(): void {
-
     this.error = undefined;
 
     const name = this.name?.value ?? '';
@@ -51,21 +57,20 @@ export class ContactComponent {
       return;
     }
 
-    this.emailService.sendEmail(name, email, message, policy)
-      .subscribe({
-        next: (v) => {
-          console.log(v);
-          this.contactForm.reset();
-          this.sent = true;
-          setTimeout(() => {
-            this.sent = false;
-          }, 5000);
-        },
-        error: (e) => {
-          console.error(e);
-          this.error = e.error
-        },
-        complete: () => console.info('complete')
-      });
+    this.emailService.sendEmail(name, email, message, policy).subscribe({
+      next: (v) => {
+        console.log(v);
+        this.contactForm.reset();
+        this.sent = true;
+        setTimeout(() => {
+          this.sent = false;
+        }, 5000);
+      },
+      error: (e) => {
+        console.error(e);
+        this.error = e.error;
+      },
+      complete: () => console.info('complete'),
+    });
   }
 }

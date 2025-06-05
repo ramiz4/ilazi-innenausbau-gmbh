@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: ImprintComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ImprintRoutingModule { }
+export class ImprintRoutingModule {}

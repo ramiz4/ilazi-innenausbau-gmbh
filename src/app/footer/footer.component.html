@@ -1,4 +1,6 @@
-<footer class="p-4 bg-white border-t border-zinc-200 sm:p-6 dark:bg-neutral-900 dark:border-zinc-700">
+<footer
+  class="p-4 bg-white border-t border-zinc-200 sm:p-6 dark:bg-neutral-900 dark:border-zinc-700"
+>
   <div class="md:flex md:justify-between">
     <div class="mb-6 md:mb-0">
       <a routerLink="/" class="flex items-center">
@@ -7,15 +9,26 @@
     </div>
     <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
       <div *ngFor="let section of sections">
-        <h2 class="mb-6 text-sm font-semibold text-zinc-900 uppercase dark:text-white">
+        <h2
+          class="mb-6 text-sm font-semibold text-zinc-900 uppercase dark:text-white"
+        >
           {{ section.title }}
         </h2>
         <ul class="text-zinc-600 dark:text-zinc-200">
           <li class="mb-4" *ngFor="let menuItem of section.menuItems">
-            <a *ngIf="menuItem.type === 'main' || menuItem.type === 'intern'" [routerLink]="[menuItem.href]" [fragment]="menuItem.id" class="hover:underline">
+            <a
+              *ngIf="menuItem.type === 'main' || menuItem.type === 'intern'"
+              [routerLink]="[menuItem.href]"
+              [fragment]="menuItem.id"
+              class="hover:underline"
+            >
               {{ menuItem.text }}
             </a>
-            <a *ngIf="menuItem.type === 'extern'" [href]="menuItem.href" class="hover:underline">
+            <a
+              *ngIf="menuItem.type === 'extern'"
+              [href]="menuItem.href"
+              class="hover:underline"
+            >
               {{ menuItem.text }}
             </a>
           </li>
@@ -26,11 +39,16 @@
   <hr class="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
   <div class="sm:flex sm:items-center sm:justify-between">
     <span class="text-sm text-zinc-500 sm:text-center dark:text-zinc-200">
-      © 2023 <a routerLink="/" class="hover:underline">Ilazi Innenausbau GmbH</a>. All Rights Reserved.
+      © 2023
+      <a routerLink="/" class="hover:underline">Ilazi Innenausbau GmbH</a>. All
+      Rights Reserved.
     </span>
     <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
       <ng-container *ngFor="let socialLink of socialLinks">
-        <a [href]="socialLink.href" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+        <a
+          [href]="socialLink.href"
+          class="text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+        >
           <span [innerHTML]="socialLink.icon | safeHtml"></span>
           <span class="sr-only">{{ socialLink.text }}</span>
         </a>
