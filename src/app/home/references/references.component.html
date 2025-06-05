@@ -1,20 +1,80 @@
 <section class="bg-red-900 text-white py-12 px-6 sm:py-16 lg:px-8">
-  <div
-    class="container mx-auto pt-12 lg:pt-14 xl:pt-20 testimonials-carousel pb-12 lg:pb-14 xl:pb-20"
-  >
+  <div class="container mx-auto pt-12 lg:pt-14 xl:pt-20 testimonials-carousel pb-12 lg:pb-14 xl:pb-20">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-2xl lg:text-3xl xl:text-4xl font-bold mb-4">
+        Was unsere Kunden sagen
+      </h2>
+      <p class="text-lg opacity-90">
+        Erfahrungen und Bewertungen unserer zufriedenen Auftraggeber
+      </p>
+    </div>
+
+    <!-- Testimonial Display -->
     <div class="flex h-full my-auto">
-      <div
-        class="max-w-5xl flex flex-col gap-4 justify-center text-center mx-auto items-center"
-      >
-        <h3 class="text-xl lg:text-2xl xl:text-h3 !font-medium">
-          Ich war super zufrieden mit der Arbeit, die das Team von Ilazi
-          Innenausbau GmbH in meiner Praxis in Spreitenbach, Schweiz geleistet
-          hat. Von der Beratung bis zur Umsetzung war alles perfekt.
-        </h3>
-        <p class="text-sm lg:text-body xl:text-2xl">
-          - Martina D., Spreitenbach, Schweiz
-        </p>
+      <div class="max-w-5xl flex flex-col gap-6 justify-center text-center mx-auto items-center">
+        <!-- Quote -->
+        <div class="relative">
+          <svg class="absolute -top-4 -left-6 w-8 h-8 text-red-300 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+          </svg>
+          <h3 class="text-xl lg:text-2xl xl:text-h3 !font-medium leading-relaxed px-8">
+            {{ currentTestimonial.quote }}
+          </h3>
+        </div>
+        
+        <!-- Author Info -->
+        <div class="flex flex-col gap-2">
+          <p class="text-sm lg:text-body xl:text-2xl font-semibold">
+            {{ currentTestimonial.author }}
+          </p>
+          <p class="text-xs lg:text-sm xl:text-lg opacity-80">
+            {{ currentTestimonial.location }} • {{ currentTestimonial.project }}
+          </p>
+        </div>
       </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="flex justify-center items-center gap-6 mt-12">
+      <!-- Previous Button -->
+      <button 
+        (click)="previousTestimonial()"
+        class="p-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 group"
+        aria-label="Vorheriges Testimonial">
+        <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div class="flex gap-2">
+        <button 
+          *ngFor="let testimonial of testimonials; let i = index"
+          (click)="setTestimonial(i)"
+          class="w-3 h-3 rounded-full transition-all duration-300 bg-white"
+          [class.bg-opacity-100]="i === currentTestimonialIndex"
+          [class.bg-opacity-40]="i !== currentTestimonialIndex"
+          [attr.aria-label]="'Testimonial ' + (i + 1)">
+        </button>
+      </div>
+
+      <!-- Next Button -->
+      <button 
+        (click)="nextTestimonial()"
+        class="p-3 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300 group"
+        aria-label="Nächstes Testimonial">
+        <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Testimonial Counter -->
+    <div class="text-center mt-6">
+      <p class="text-sm opacity-70">
+        {{ currentTestimonialIndex + 1 }} von {{ testimonials.length }}
+      </p>
     </div>
   </div>
 </section>
