@@ -9,7 +9,8 @@
         </h2>
       </div>
       <div class="gallery-carousel container mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
+        <!-- Show images when available -->
+        <div *ngIf="images.length > 0" class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
           <div
             *ngFor="let image of images"
             class="relative overflow-hidden aspect-w-16 aspect-h-9 max-h-48"
@@ -20,6 +21,21 @@
               data-nimg="fill"
               class="w-full h-full object-center object-cover md:rounded-xl lg:rounded-2xl"
             />
+          </div>
+        </div>
+        
+        <!-- Show friendly message when no images -->
+        <div *ngIf="images.length === 0" class="text-center py-16">
+          <div class="mx-auto max-w-md">
+            <svg class="mx-auto h-16 w-16 text-gray-400 dark:text-zinc-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-zinc-100 mb-2">
+              Noch keine Bilder
+            </h3>
+            <p class="text-gray-500 dark:text-zinc-400">
+              Unsere Galerie wird derzeit aktualisiert. Schauen Sie bald wieder vorbei, um unsere neuesten Arbeiten und Projekte zu sehen.
+            </p>
           </div>
         </div>
       </div>
