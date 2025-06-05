@@ -1,14 +1,154 @@
-<div class="bg-red-900 text-white py-24 px-6 sm:py-32 lg:px-8">
-  <div class="mx-auto max-w-5xl text-center px-6 lg:px-8">
-    <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-      Unsere Partner
-    </h2>
-    <p class="mt-10 text-lg leading-8">
-      Unsere Partner sind ein wichtiger Teil unseres Erfolgs. Wir arbeiten eng
-      mit ihnen zusammen, um unseren Kunden die besten Lösungen und
-      Dienstleistungen zu bieten. Wir sind stolz darauf, mit diesen renommierten
-      Unternehmen zusammenzuarbeiten und freuen uns auf eine weiterhin
-      erfolgreiche Zusammenarbeit.
-    </p>
+<div class="bg-gradient-to-b from-red-900 to-red-800 text-white py-24 px-6 sm:py-32 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <!-- Header Section -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-6">
+        Unsere Partner
+      </h2>
+      <div class="w-24 h-1 bg-white mx-auto mb-8"></div>
+      <p class="mt-6 text-lg leading-8 max-w-3xl mx-auto text-red-100">
+        Unsere Partner sind ein wichtiger Teil unseres Erfolgs. Wir arbeiten eng
+        mit ihnen zusammen, um unseren Kunden die besten Lösungen und
+        Dienstleistungen zu bieten. Wir sind stolz darauf, mit diesen renommierten
+        Unternehmen zusammenzuarbeiten und freuen uns auf eine weiterhin
+        erfolgreiche Zusammenarbeit.
+      </p>
+    </div>
+
+    <!-- Featured Partners Section -->
+    <div class="mb-20">
+      <h3 class="text-2xl font-semibold text-center mb-12 text-red-100">
+        Unsere Hauptpartner
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div 
+          *ngFor="let partner of featuredPartners" 
+          class="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-white/20"
+        >
+          <div class="bg-white rounded-lg p-6 mb-6 shadow-lg">
+            <img 
+              [src]="partner.logo" 
+              [alt]="partner.name + ' Logo'" 
+              class="h-16 mx-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+          <h4 class="text-xl font-semibold mb-3">{{ partner.name }}</h4>
+          <p class="text-red-100 text-sm mb-6 leading-relaxed">{{ partner.description }}</p>
+          <a 
+            [href]="partner.website" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-4 py-2 bg-white text-red-900 rounded-lg font-medium hover:bg-red-50 transition-colors duration-200"
+          >
+            Website besuchen
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Partners Section -->
+    <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+      <div class="text-center mb-12">
+        <h3 class="text-2xl font-semibold mb-6">Alle Partner</h3>
+        
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <button 
+            *ngFor="let category of categories"
+            (click)="filterByCategory(category.value)"
+            [class]="selectedCategory === category.value 
+              ? 'bg-white text-red-900 shadow-lg' 
+              : 'bg-white/20 text-white border border-white/30 hover:bg-white/30'"
+            class="px-6 py-2 rounded-full font-medium transition-all duration-200"
+          >
+            {{ category.name }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Partners Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div 
+          *ngFor="let partner of getFilteredPartners()" 
+          class="bg-white rounded-xl p-4 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+        >
+          <div class="mb-4">
+            <img 
+              [src]="partner.logo" 
+              [alt]="partner.name + ' Logo'" 
+              class="h-12 mx-auto object-contain group-hover:scale-110 transition-transform duration-200"
+              loading="lazy"
+            />
+          </div>
+          <h5 class="text-sm font-semibold text-gray-900 mb-2">{{ partner.name }}</h5>
+          <span class="inline-block px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">
+            {{ partner.category }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partnership Benefits Section -->
+    <div class="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h4 class="text-xl font-semibold mb-4">Qualitätsgarantie</h4>
+        <p class="text-red-100 leading-relaxed">
+          Durch die Zusammenarbeit mit führenden Herstellern garantieren wir höchste Qualitätsstandards bei allen Materialien.
+        </p>
+      </div>
+      
+      <div class="text-center">
+        <div class="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h4 class="text-xl font-semibold mb-4">Innovation</h4>
+        <p class="text-red-100 leading-relaxed">
+          Wir setzen auf innovative Lösungen und modernste Technologien für nachhaltigen und effizienten Innenausbau.
+        </p>
+      </div>
+      
+      <div class="text-center">
+        <div class="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+        <h4 class="text-xl font-semibold mb-4">Verlässlichkeit</h4>
+        <p class="text-red-100 leading-relaxed">
+          Starke Partnerschaften ermöglichen uns kurze Lieferzeiten und eine zuverlässige Projektabwicklung.
+        </p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-16">
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+        <h3 class="text-2xl font-semibold mb-4">Werden Sie unser Partner</h3>
+        <p class="text-red-100 mb-8 max-w-2xl mx-auto">
+          Sie sind ein Hersteller oder Lieferant von Innenausbau-Materialien? 
+          Wir freuen uns auf eine mögliche Zusammenarbeit und neue Partnerschaften.
+        </p>
+        <a 
+          href="#contact" 
+          class="inline-flex items-center px-8 py-3 bg-white text-red-900 rounded-lg font-semibold hover:bg-red-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
+        >
+          Kontakt aufnehmen
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
