@@ -6,8 +6,14 @@ import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { of, throwError } from 'rxjs';
 import { ContactComponent } from './contact.component';
 import { EmailService } from './email.service';
 
@@ -119,6 +125,163 @@ describe('ContactComponent', () => {
     it('should render submit button', () => {
       const submitButton = compiled.querySelector('button[type="submit"]');
       expect(submitButton).toBeTruthy();
+    });
+  });
+
+  describe('Form Getters', () => {
+    it('should return name control', () => {
+      const nameControl = component.name;
+      expect(nameControl).toBe(component.contactForm.get('name'));
+    });
+
+    it('should return email control', () => {
+      const emailControl = component.email;
+      expect(emailControl).toBe(component.contactForm.get('email'));
+    });
+
+    it('should return message control', () => {
+      const messageControl = component.message;
+      expect(messageControl).toBe(component.contactForm.get('message'));
+    });
+
+    it('should return policy control', () => {
+      const policyControl = component.policy;
+      expect(policyControl).toBe(component.contactForm.get('policy'));
+    });
+  });
+
+  describe('Form Submission', () => {
+    beforeEach(() => {
+      // Set up valid form data
+      component.contactForm.patchValue({
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Test message',
+        policy: true,
+      });
+    });
+
+    it('should not submit if form is invalid', () => {
+      component.contactForm.patchValue({ name: '' }); // Make form invalid
+      spyOn(emailService, 'sendEmail');
+
+      component.onSubmit();
+
+      expect(emailService.sendEmail).not.toHaveBeenCalled();
+    });
+
+    it('should submit if form is valid', fakeAsync(() => {
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+
+      component.onSubmit();
+      tick();
+
+      expect(emailService.sendEmail).toHaveBeenCalledWith(
+        'John Doe',
+        'john@example.com',
+        'Test message',
+        true
+      );
+    }));
+
+    it('should handle successful submission', fakeAsync(() => {
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+
+      component.onSubmit();
+      tick();
+
+      component.loading$.subscribe(loading => {
+        expect(loading).toBe(false);
+      });
+
+      component.error$.subscribe(error => {
+        expect(error).toBeNull();
+      });
+    }));
+
+    it('should handle submission error', fakeAsync(() => {
+      const errorMessage = 'Network error';
+      spyOn(emailService, 'sendEmail').and.returnValue(
+        throwError(() => new Error(errorMessage))
+      );
+      spyOn(console, 'error');
+
+      component.onSubmit();
+      tick();
+
+      component.error$.subscribe(error => {
+        expect(error).toBe(
+          'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.'
+        );
+      });
+
+      expect(console.error).toHaveBeenCalled();
+    }));
+
+    it('should show loading state during submission', fakeAsync(() => {
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+      let loadingStates: boolean[] = [];
+
+      component.loading$.subscribe(loading => {
+        loadingStates.push(loading);
+      });
+
+      component.onSubmit();
+
+      // Initial state should be false
+      expect(loadingStates[0]).toBe(false);
+
+      tick();
+
+      // Should have loading true and then false states
+      expect(loadingStates.some(state => state === true)).toBe(true);
+      expect(loadingStates[loadingStates.length - 1]).toBe(false);
+    }));
+
+    it('should reset form after successful submission', fakeAsync(() => {
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+
+      component.onSubmit();
+      tick();
+
+      expect(component.contactForm.get('name')?.value).toBe('');
+      expect(component.contactForm.get('email')?.value).toBe('');
+      expect(component.contactForm.get('message')?.value).toBe('');
+      expect(component.contactForm.get('policy')?.value).toBe(false);
+      expect(component.contactForm.pristine).toBe(true);
+      expect(component.contactForm.untouched).toBe(true);
+    }));
+  });
+
+  describe('Component Lifecycle', () => {
+    it('should complete destroy subject on ngOnDestroy', () => {
+      spyOn(component['destroy$'], 'next');
+      spyOn(component['destroy$'], 'complete');
+
+      component.ngOnDestroy();
+
+      expect(component['destroy$'].next).toHaveBeenCalled();
+      expect(component['destroy$'].complete).toHaveBeenCalled();
+    });
+  });
+
+  describe('Observable Streams', () => {
+    it('should initialize loading$ observable', () => {
+      component.loading$.subscribe(loading => {
+        expect(typeof loading).toBe('boolean');
+      });
+    });
+
+    it('should initialize error$ observable', () => {
+      component.error$.subscribe(error => {
+        expect(error === null || typeof error === 'string').toBe(true);
+      });
+    });
+
+    it('should initialize sent$ observable', () => {
+      component.sent$.subscribe(sent => {
+        expect(typeof sent).toBe('boolean');
+      });
     });
   });
 });
