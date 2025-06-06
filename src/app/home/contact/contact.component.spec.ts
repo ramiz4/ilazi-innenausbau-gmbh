@@ -289,7 +289,18 @@ describe('ContactComponent', () => {
     it('should handle null/undefined form values with fallback values', fakeAsync(() => {
       // Test the null coalescing operators (||) in sendEmail
       // Mock the form value to return null values to test the || fallbacks
-      const originalValue = component.contactForm.value;
+      const originalValueDescriptor = Object.getOwnPropertyDescriptor(
+        component.contactForm,
+        'value'
+      );
+      const originalValidDescriptor = Object.getOwnPropertyDescriptor(
+        component.contactForm,
+        'valid'
+      );
+
+      // Spy on formResetTrigger$ to prevent form reset during this test
+      spyOn(component['formResetTrigger$'], 'next');
+
       Object.defineProperty(component.contactForm, 'value', {
         get: () => ({
           name: null,
@@ -313,11 +324,21 @@ describe('ContactComponent', () => {
 
       expect(emailService.sendEmail).toHaveBeenCalledWith('', '', '', false);
 
-      // Restore original value
-      Object.defineProperty(component.contactForm, 'value', {
-        get: () => originalValue,
-        configurable: true,
-      });
+      // Restore original descriptors properly
+      if (originalValueDescriptor) {
+        Object.defineProperty(
+          component.contactForm,
+          'value',
+          originalValueDescriptor
+        );
+      }
+      if (originalValidDescriptor) {
+        Object.defineProperty(
+          component.contactForm,
+          'valid',
+          originalValidDescriptor
+        );
+      }
     }));
 
     it('should have policy field with requiredTrue validator', () => {
