@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuItem } from './app.model';
+import { MenuItem } from './menu-item.interface';
 
 @Injectable()
 export class AppService {

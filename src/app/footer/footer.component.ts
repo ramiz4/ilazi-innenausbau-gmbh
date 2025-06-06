@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FooterSection } from '../app.model';
 import { AppService } from '../app.service';
+import { FooterSection } from '../footer-section.interface';
 import { SafeHtmlPipe } from '../safe-html.pipe';
 
 @Component({

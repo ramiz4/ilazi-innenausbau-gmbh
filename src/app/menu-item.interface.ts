@@ -5,9 +5,3 @@ export interface MenuItem {
   href: string;
   icon?: string;
 }
-
-export interface FooterSection {
-  id: string;
-  title: string;
-  menuItems: MenuItem[];
-}
