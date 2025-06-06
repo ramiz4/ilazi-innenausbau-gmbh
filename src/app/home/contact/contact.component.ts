@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmailService } from './email.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class ContactComponent {
@@ -31,12 +30,15 @@ export class ContactComponent {
   get name() {
     return this.contactForm.get('name');
   }
+
   get email() {
     return this.contactForm.get('email');
   }
+
   get message() {
     return this.contactForm.get('message');
   }
+
   get policy() {
     return this.contactForm.get('policy');
   }
@@ -70,7 +72,7 @@ export class ContactComponent {
       },
       error: e => {
         console.error(e);
-        this.error = e.error;
+        this.error = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.';
       },
       complete: () => console.info('complete'),
     });
