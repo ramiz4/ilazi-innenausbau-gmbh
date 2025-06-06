@@ -91,8 +91,8 @@ describe('ImprintComponent', () => {
     });
 
     it('should render business registration details', () => {
-      const companyCard = compiled.querySelector('#company-info');
-      const registrationDetails = companyCard?.textContent;
+      const legalDetailsSection = compiled.querySelector('#legal-details');
+      const registrationDetails = legalDetailsSection?.textContent;
 
       expect(registrationDetails).toContain('CH-020.4.071.007-7');
       expect(registrationDetails).toContain('CHE-273.148.088');
@@ -270,8 +270,8 @@ describe('ImprintComponent', () => {
 
   describe('Business Logic Validation', () => {
     it('should have valid Swiss business registration format', () => {
-      const companyCard = compiled.querySelector('#company-info');
-      const registrationText = companyCard?.textContent || '';
+      const legalDetailsSection = compiled.querySelector('#legal-details');
+      const registrationText = legalDetailsSection?.textContent || '';
 
       // Check Swiss HR number format (CH-XXX.X.XXX.XXX-X)
       expect(registrationText).toMatch(/CH-\d{3}\.\d\.\d{3}\.\d{3}-\d/);
@@ -292,10 +292,8 @@ describe('ImprintComponent', () => {
 
   describe('Interactive Elements', () => {
     it('should have hover effects on contact links', () => {
-      const phoneLink = compiled.querySelector('a[href^="tel:"]');
       const emailLink = compiled.querySelector('a[href^="mailto:"]');
 
-      expect(phoneLink?.classList.contains('group')).toBe(true);
       expect(emailLink?.classList.contains('group')).toBe(true);
     });
 
@@ -513,21 +511,23 @@ describe('ImprintComponent', () => {
     });
 
     it('should have data-test attributes on company registration details', () => {
-      const companyRegistration = compiled.querySelector(
-        '[data-test="company-registration"]'
+      const legalDetailsSection = compiled.querySelector(
+        '[data-test="legal-details-section"]'
       );
       const companyLegalForm = compiled.querySelector(
-        '[data-test="company-legal-form"]'
+        '[data-test="company-legal-form-detail"]'
       );
       const companyRegistrationNumber = compiled.querySelector(
-        '[data-test="company-registration-number"]'
+        '[data-test="company-registration-number-detail"]'
       );
-      const companyUID = compiled.querySelector('[data-test="company-uid"]');
+      const companyUID = compiled.querySelector(
+        '[data-test="company-uid-detail"]'
+      );
       const companyRegistrationDate = compiled.querySelector(
-        '[data-test="company-registration-date"]'
+        '[data-test="company-registration-date-detail"]'
       );
 
-      expect(companyRegistration).toBeTruthy();
+      expect(legalDetailsSection).toBeTruthy();
       expect(companyLegalForm).toBeTruthy();
       expect(companyRegistrationNumber).toBeTruthy();
       expect(companyUID).toBeTruthy();
@@ -560,22 +560,14 @@ describe('ImprintComponent', () => {
     });
 
     it('should have data-test attributes on contact links', () => {
-      const phoneLink = compiled.querySelector(
-        '[data-test="contact-phone-link"]'
-      );
       const emailLink = compiled.querySelector(
         '[data-test="contact-email-link"]'
-      );
-      const phoneInfo = compiled.querySelector(
-        '[data-test="contact-phone-info"]'
       );
       const emailInfo = compiled.querySelector(
         '[data-test="contact-email-info"]'
       );
 
-      expect(phoneLink).toBeTruthy();
       expect(emailLink).toBeTruthy();
-      expect(phoneInfo).toBeTruthy();
       expect(emailInfo).toBeTruthy();
     });
 
@@ -728,19 +720,14 @@ describe('ImprintComponent', () => {
     it('should allow easy automated testing with data-test selectors', () => {
       // Test that we can reliably find and interact with key elements
       const companyName = compiled.querySelector('[data-test="company-name"]');
-      const contactPhone = compiled.querySelector(
-        '[data-test="contact-phone-link"]'
-      );
       const contactEmail = compiled.querySelector(
         '[data-test="contact-email-link"]'
       );
 
       expect(companyName).toBeTruthy();
-      expect(contactPhone).toBeTruthy();
       expect(contactEmail).toBeTruthy();
 
       // Test that these elements have the expected properties for automation
-      expect(contactPhone?.getAttribute('href')).toContain('tel:');
       expect(contactEmail?.getAttribute('href')).toContain('mailto:');
     });
 
@@ -770,18 +757,13 @@ describe('ImprintComponent', () => {
   describe('E2E Testing Support', () => {
     it('should provide stable selectors for E2E tests', () => {
       // Verify that key user interaction elements have data-test attributes
-      const phoneLink = compiled.querySelector(
-        '[data-test="contact-phone-link"]'
-      );
       const emailLink = compiled.querySelector(
         '[data-test="contact-email-link"]'
       );
 
-      expect(phoneLink).toBeTruthy();
       expect(emailLink).toBeTruthy();
 
       // These elements should be clickable
-      expect(phoneLink?.tagName.toLowerCase()).toBe('a');
       expect(emailLink?.tagName.toLowerCase()).toBe('a');
     });
 
