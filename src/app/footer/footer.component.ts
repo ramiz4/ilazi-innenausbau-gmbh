@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterSection } from '../app.model';
 import { AppService } from '../app.service';
@@ -13,6 +13,16 @@ import { SafeHtmlPipe } from '../safe-html.pipe';
 })
 export class FooterComponent {
   @Input() logo = '';
+
+  contactInfo = {
+    address: 'Musterstraße 123, 8000 Zürich, Schweiz',
+    phone: '+41 44 123 45 67',
+    email: 'info@ilazi-innenausbau.ch',
+  };
+
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
 
   sections: FooterSection[] = [
     {
