@@ -35,7 +35,7 @@ jobs:
       run: npm ci
       
     - name: Build application
-      run: npm run build -- --base-href=/ilazi-innenausbau-gmbh/
+      run: npm run build
       
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
