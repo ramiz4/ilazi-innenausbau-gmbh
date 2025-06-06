@@ -1,33 +1,34 @@
-<div id="privacy" class="container mx-auto px-6 py-12 dark:text-zinc-50">
-  <h1 class="text-2xl font-bold mb-4">{{ title }}</h1>
+<div id="privacy" class="container mx-auto px-6 py-12 dark:text-zinc-50" data-test="privacy-container">
+  <h1 class="text-2xl font-bold mb-4" data-test="privacy-title">{{ title }}</h1>
 
-  <ol class="list-inside">
-    <li class="mb-4" *ngFor="let section of privacySections; index as i">
-      <h2 class="text-2xl font-bold mb-2">{{ section.title }}</h2>
+  <ol class="list-inside" data-test="privacy-sections-list">
+    <li class="mb-4" *ngFor="let section of privacySections; index as i" [attr.data-test]="'privacy-section-' + i">
+      <h2 class="text-2xl font-bold mb-2" [attr.data-test]="'privacy-section-title-' + i">{{ section.title }}</h2>
 
       <!-- Section subtitle if exists -->
-      <h3 *ngIf="section.subtitle" class="text-xl font-semibold mb-2">
+      <h3 *ngIf="section.subtitle" class="text-xl font-semibold mb-2" [attr.data-test]="'privacy-section-subtitle-' + i">
         {{ section.subtitle }}
       </h3>
 
       <!-- Section content -->
-      <div *ngFor="let content of section.content">
+      <div *ngFor="let content of section.content; index as contentIndex" [attr.data-test]="'privacy-section-content-' + i + '-' + contentIndex">
         <p class="mb-4" [innerHTML]="content"></p>
       </div>
 
       <!-- Subsections -->
-      <div *ngFor="let subsection of section.subsections">
-        <h3 class="text-xl font-semibold mb-2">{{ subsection.title }}</h3>
-        <div *ngFor="let content of subsection.content">
+      <div *ngFor="let subsection of section.subsections; index as subIndex" [attr.data-test]="'privacy-subsection-' + i + '-' + subIndex">
+        <h3 class="text-xl font-semibold mb-2" [attr.data-test]="'privacy-subsection-title-' + i + '-' + subIndex">{{ subsection.title }}</h3>
+        <div *ngFor="let content of subsection.content; index as subContentIndex" [attr.data-test]="'privacy-subsection-content-' + i + '-' + subIndex + '-' + subContentIndex">
           <p class="mb-4" [innerHTML]="content"></p>
         </div>
         <!-- Subsection link if exists -->
-        <p *ngIf="subsection.link" class="mb-4">
+        <p *ngIf="subsection.link" class="mb-4" [attr.data-test]="'privacy-subsection-link-container-' + i + '-' + subIndex">
           <a
             [href]="subsection.link.url"
             target="_blank"
             rel="noopener noreferrer"
             class="text-blue-600 hover:text-blue-800 underline"
+            [attr.data-test]="'privacy-subsection-link-' + i + '-' + subIndex"
           >
             {{ subsection.link.text }}
           </a>
@@ -37,18 +38,19 @@
   </ol>
 
   <!-- Contact Information Section -->
-  <div class="mt-8 mb-4">
-    <h3 class="text-xl font-semibold mb-2">Verantwortliche Stelle</h3>
-    <p class="mb-2">{{ contactInfo.company }}</p>
-    <p class="mb-2">{{ contactInfo.name }}</p>
-    <div *ngFor="let line of contactInfo.address">
+  <div class="mt-8 mb-4" data-test="contact-info-section">
+    <h3 class="text-xl font-semibold mb-2" data-test="contact-info-title">Verantwortliche Stelle</h3>
+    <p class="mb-2" data-test="contact-info-company">{{ contactInfo.company }}</p>
+    <p class="mb-2" data-test="contact-info-name">{{ contactInfo.name }}</p>
+    <div *ngFor="let line of contactInfo.address; index as addressIndex" [attr.data-test]="'contact-info-address-' + addressIndex">
       <p class="mb-2">{{ line }}</p>
     </div>
-    <p class="mb-2">Telefon: {{ contactInfo.phone }}</p>
-    <p class="mb-4">
+    <p class="mb-2" data-test="contact-info-phone">Telefon: {{ contactInfo.phone }}</p>
+    <p class="mb-4" data-test="contact-info-email-container">
       <a
         [href]="'mailto:' + contactInfo.email"
         class="text-blue-600 hover:text-blue-800 underline"
+        data-test="contact-info-email-link"
       >
         E-Mail: {{ contactInfo.email }}
       </a>
@@ -56,14 +58,15 @@
   </div>
 
   <!-- Source Information -->
-  <div class="mt-8">
-    <p class="mb-4">{{ sourceInfo.text }}</p>
-    <p class="mb-4">
+  <div class="mt-8" data-test="source-info-section">
+    <p class="mb-4" data-test="source-info-text">{{ sourceInfo.text }}</p>
+    <p class="mb-4" data-test="source-info-link-container">
       <a
         [href]="sourceInfo.link.url"
         target="_blank"
         rel="noopener noreferrer"
         class="text-blue-600 hover:text-blue-800 underline"
+        data-test="source-info-link"
       >
         {{ sourceInfo.link.text }}
       </a>
