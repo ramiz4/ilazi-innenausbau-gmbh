@@ -4,10 +4,10 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { EmailService } from './email.service';
 
 @Component({
-    selector: 'app-contact',
-    templateUrl: './contact.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, ReactiveFormsModule]
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class ContactComponent {
   privacyPolicyAgreed = false;
@@ -60,7 +60,7 @@ export class ContactComponent {
     }
 
     this.emailService.sendEmail(name, email, message, policy).subscribe({
-      next: (v) => {
+      next: v => {
         console.log(v);
         this.contactForm.reset();
         this.sent = true;
@@ -68,7 +68,7 @@ export class ContactComponent {
           this.sent = false;
         }, 5000);
       },
-      error: (e) => {
+      error: e => {
         console.error(e);
         this.error = e.error;
       },

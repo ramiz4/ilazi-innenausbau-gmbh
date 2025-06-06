@@ -4,9 +4,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    imports: [RouterOutlet, HeaderComponent, FooterComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
 })
 export class AppComponent {
   logo = '../assets/logo-current.svg';

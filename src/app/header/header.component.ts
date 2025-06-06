@@ -10,10 +10,10 @@ import { AppService } from '../app.service';
 import { ThemeMenuComponent } from './theme-menu/theme-menu.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, RouterModule, ThemeMenuComponent]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, RouterModule, ThemeMenuComponent],
 })
 export class HeaderComponent {
   @Input() logo = '';

@@ -6,10 +6,10 @@ import { AppService } from '../app.service';
 import { SafeHtmlPipe } from '../safe-html.pipe';
 
 @Component({
-    selector: 'app-footer',
-    templateUrl: './footer.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, RouterModule, SafeHtmlPipe]
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, RouterModule, SafeHtmlPipe],
 })
 export class FooterComponent {
   @Input() logo = '';
@@ -77,7 +77,7 @@ export class FooterComponent {
   ];
 
   get socialLinks() {
-    return this.sections.find((x) => x.id === 'social-links')?.menuItems;
+    return this.sections.find(x => x.id === 'social-links')?.menuItems;
   }
 
   constructor(private appService: AppService) {}

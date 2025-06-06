@@ -12,10 +12,10 @@ interface Partner {
 }
 
 @Component({
-    selector: 'app-partner',
-    templateUrl: './partner.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule]
+  selector: 'app-partner',
+  templateUrl: './partner.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule],
 })
 export class PartnerComponent {
   partners: Partner[] = [
@@ -23,37 +23,41 @@ export class PartnerComponent {
       id: 1,
       name: 'Knauf',
       logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Knauf.svg',
-      description: 'Führender Hersteller von Gipskartonplatten und Trockenbausystemen.',
+      description:
+        'Führender Hersteller von Gipskartonplatten und Trockenbausystemen.',
       website: 'https://www.knauf.ch',
       category: 'Trockenbau',
-      featured: true
+      featured: true,
     },
     {
       id: 2,
       name: 'Rigips',
       logo: 'assets/partners/rigips.svg',
-      description: 'Premium-Anbieter für innovative Trockenbau- und Dämmlösungen.',
+      description:
+        'Premium-Anbieter für innovative Trockenbau- und Dämmlösungen.',
       website: 'https://www.rigips.ch',
       category: 'Trockenbau',
-      featured: true
+      featured: true,
     },
     {
       id: 3,
       name: 'ISOVER',
       logo: 'assets/partners/isover.png',
-      description: 'Spezialist für Dämmstoffe und energieeffiziente Gebäudelösungen.',
+      description:
+        'Spezialist für Dämmstoffe und energieeffiziente Gebäudelösungen.',
       website: 'https://www.isover.ch',
       category: 'Dämmung',
-      featured: true
+      featured: true,
     },
     {
       id: 4,
       name: 'USG Boral',
       logo: 'assets/partners/ugs-boral.png',
-      description: 'Hochwertige Gipskartonprodukte und Bausysteme für den modernen Innenausbau.',
+      description:
+        'Hochwertige Gipskartonprodukte und Bausysteme für den modernen Innenausbau.',
       website: 'https://www.usgboral.com',
       category: 'Trockenbau',
-      featured: false
+      featured: false,
     },
     {
       id: 5,
@@ -62,7 +66,7 @@ export class PartnerComponent {
       description: 'Innovative Gipsfaserplatten für nachhaltige Bauprojekte.',
       website: 'https://www.fermacell.ch',
       category: 'Trockenbau',
-      featured: false
+      featured: false,
     },
     {
       id: 6,
@@ -71,8 +75,8 @@ export class PartnerComponent {
       description: 'Führender Anbieter von Steinwolle-Dämmstoffen.',
       website: 'https://www.rockwool.ch',
       category: 'Dämmung',
-      featured: false
-    }
+      featured: false,
+    },
   ];
 
   get featuredPartners(): Partner[] {
@@ -86,7 +90,7 @@ export class PartnerComponent {
   categories = [
     { name: 'Alle', value: 'all' },
     { name: 'Trockenbau', value: 'Trockenbau' },
-    { name: 'Dämmung', value: 'Dämmung' }
+    { name: 'Dämmung', value: 'Dämmung' },
   ];
 
   selectedCategory = 'all';
@@ -95,7 +99,9 @@ export class PartnerComponent {
     if (this.selectedCategory === 'all') {
       return this.partners;
     }
-    return this.partners.filter(partner => partner.category === this.selectedCategory);
+    return this.partners.filter(
+      partner => partner.category === this.selectedCategory
+    );
   }
 
   filterByCategory(category: string): void {

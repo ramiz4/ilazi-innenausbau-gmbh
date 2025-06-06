@@ -10,10 +10,10 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-theme-menu',
-    templateUrl: './theme-menu.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule]
+  selector: 'app-theme-menu',
+  templateUrl: './theme-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule],
 })
 export class ThemeMenuComponent {
   isOpen = false;

@@ -8,16 +8,16 @@ import { PartnerComponent } from './partner/partner.component';
 import { ContactComponent } from './contact/contact.component';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    imports: [
-        CommonModule,
-        HeroComponent,
-        AboutComponent,
-        ReferencesComponent,
-        GalleryComponent,
-        PartnerComponent,
-        ContactComponent
-    ]
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  imports: [
+    CommonModule,
+    HeroComponent,
+    AboutComponent,
+    ReferencesComponent,
+    GalleryComponent,
+    PartnerComponent,
+    ContactComponent,
+  ],
 })
 export class HomeComponent {}

@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage"
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
+    "lint": "prettier --check \"src/**/*.{ts,html,scss,css,js,json}\"",
+    "lint:fix": "prettier --write \"src/**/*.{ts,html,scss,css,js,json}\""
   },
   "private": true,
   "dependencies": {
@@ -37,6 +39,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.4.21",
+    "prettier": "^3.5.3",
     "tailwindcss": "^3.2.7",
     "typescript": "~5.5.0"
   }
