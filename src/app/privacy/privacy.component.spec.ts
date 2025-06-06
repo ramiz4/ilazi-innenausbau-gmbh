@@ -44,8 +44,8 @@ describe('PrivacyComponent', () => {
     it('should have source info configured', () => {
       expect(component.sourceInfo).toBeDefined();
       expect(component.sourceInfo.text).toBe('Quelle:');
-      expect(component.sourceInfo.link.text).toBe('https://www.e-recht24.de/');
-      expect(component.sourceInfo.link.url).toBe('https://www.e-recht24.de/');
+      expect(component.sourceInfo.link.text).toBe('https://www.e-recht24.de');
+      expect(component.sourceInfo.link.url).toBe('https://www.e-recht24.de');
     });
   });
 
