@@ -43,14 +43,22 @@ describe('HeaderComponent', () => {
       expect(component.logo).toBe(testLogo);
     });
 
+    it('should initialize with default values', () => {
+      expect(component.logo).toBe('');
+      expect(component.isMenuOpened).toBe(false);
+      expect(component.scrolled).toBe(false);
+      expect(component.themeMode).toBeUndefined();
+    });
+
     it('should have access to AppService', () => {
       expect(component['appService']).toBeDefined();
       expect(component['appService']).toBe(appService);
     });
 
-    it('should have menu items from AppService', () => {
-      expect(component['appService'].mainMenuItems).toBeDefined();
-      expect(component['appService'].mainMenuItems.length).toBeGreaterThan(0);
+    it('should have mainMenuItems from AppService', () => {
+      expect(component.mainMenuItems).toBeDefined();
+      expect(component.mainMenuItems).toBe(appService.mainMenuItems);
+      expect(component.mainMenuItems.length).toBeGreaterThan(0);
     });
   });
 
@@ -102,14 +110,30 @@ describe('HeaderComponent', () => {
       expect(mobileToggle).toBeTruthy();
     });
 
-    it('should toggle mobile menu visibility', () => {
-      const initialMenuState = component.isMenuOpened;
+    it('should initialize with closed mobile menu', () => {
+      expect(component.isMenuOpened).toBe(false);
+    });
 
-      // Manually toggle the menu state since there's no toggleMobileMenu method
-      component.isMenuOpened = !component.isMenuOpened;
-      fixture.detectChanges();
+    it('should toggle mobile menu state', () => {
+      expect(component.isMenuOpened).toBe(false);
 
-      expect(component.isMenuOpened).toBe(!initialMenuState);
+      component.toggleMobileMenu();
+      expect(component.isMenuOpened).toBe(true);
+
+      component.toggleMobileMenu();
+      expect(component.isMenuOpened).toBe(false);
+    });
+
+    it('should close mobile menu', () => {
+      component.isMenuOpened = true;
+      component.closeMobileMenu();
+      expect(component.isMenuOpened).toBe(false);
+    });
+
+    it('should close mobile menu when already closed', () => {
+      component.isMenuOpened = false;
+      component.closeMobileMenu();
+      expect(component.isMenuOpened).toBe(false);
     });
 
     it('should have mobile menu container', () => {
@@ -124,6 +148,22 @@ describe('HeaderComponent', () => {
       expect(themeToggle).toBeTruthy();
     });
 
+    it('should detect dark theme', () => {
+      // Mock document.body.classList.contains to return true for 'dark'
+      spyOn(document.body.classList, 'contains').and.returnValue(true);
+
+      component.onChangeTheme();
+      expect(component.themeMode).toBe('dark');
+    });
+
+    it('should detect light theme', () => {
+      // Mock document.body.classList.contains to return false for 'dark'
+      spyOn(document.body.classList, 'contains').and.returnValue(false);
+
+      component.onChangeTheme();
+      expect(component.themeMode).toBe('light');
+    });
+
     it('should be accessible in mobile and desktop views', () => {
       const desktopThemeToggle = compiled.querySelector(
         '[data-test="desktop-theme-toggle"]'
@@ -133,6 +173,123 @@ describe('HeaderComponent', () => {
       );
 
       expect(desktopThemeToggle || mobileThemeToggle).toBeTruthy();
+    });
+  });
+
+  describe('Scroll Detection', () => {
+    beforeEach(() => {
+      // Reset scrolled state
+      component.scrolled = false;
+    });
+
+    it('should detect when page is scrolled down', () => {
+      // Mock window.scrollY to simulate scroll
+      spyOnProperty(window, 'scrollY', 'get').and.returnValue(100);
+
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(true);
+    });
+
+    it('should detect when page is at top', () => {
+      // Mock window.scrollY to simulate top position
+      spyOnProperty(window, 'scrollY', 'get').and.returnValue(0);
+
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(false);
+    });
+
+    it('should handle multiple scroll events', () => {
+      const scrollYSpy = spyOnProperty(window, 'scrollY', 'get');
+
+      // Start at top
+      scrollYSpy.and.returnValue(0);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(false);
+
+      // Scroll down
+      scrollYSpy.and.returnValue(50);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(true);
+
+      // Scroll back to top
+      scrollYSpy.and.returnValue(0);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(false);
+    });
+
+    it('should respond to @HostListener window:scroll', () => {
+      spyOn(component, 'onWindowScroll');
+
+      // Trigger scroll event
+      window.dispatchEvent(new Event('scroll'));
+
+      expect(component.onWindowScroll).toHaveBeenCalled();
+    });
+  });
+
+  describe('Component Integration', () => {
+    it('should maintain state consistency', () => {
+      // Test multiple state changes
+      component.toggleMobileMenu();
+      component.onChangeTheme();
+
+      spyOnProperty(window, 'scrollY', 'get').and.returnValue(100);
+      component.onWindowScroll();
+
+      expect(component.isMenuOpened).toBe(true);
+      expect(component.scrolled).toBe(true);
+      expect(component.themeMode).toBeDefined();
+    });
+
+    it('should handle rapid menu toggles', () => {
+      for (let i = 0; i < 5; i++) {
+        component.toggleMobileMenu();
+      }
+      expect(component.isMenuOpened).toBe(true);
+    });
+
+    it('should maintain AppService connection', () => {
+      expect(component.mainMenuItems).toBe(appService.mainMenuItems);
+      // Verify it stays connected after state changes
+      component.toggleMobileMenu();
+      expect(component.mainMenuItems).toBe(appService.mainMenuItems);
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('should handle undefined themeMode gracefully', () => {
+      component.themeMode = undefined;
+      expect(component.themeMode).toBeUndefined();
+
+      component.onChangeTheme();
+      expect(component.themeMode).toBeDefined();
+    });
+
+    it('should handle window scroll edge values', () => {
+      const scrollYSpy = spyOnProperty(window, 'scrollY', 'get');
+
+      // Test exactly 0
+      scrollYSpy.and.returnValue(0);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(false);
+
+      // Test exactly 1
+      scrollYSpy.and.returnValue(1);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(true);
+
+      // Test very large values
+      scrollYSpy.and.returnValue(9999);
+      component.onWindowScroll();
+      expect(component.scrolled).toBe(true);
+    });
+
+    it('should handle empty logo string', () => {
+      component.logo = '';
+      expect(component.logo).toBe('');
+
+      component.logo = '   ';
+      expect(component.logo).toBe('   ');
     });
   });
 });
