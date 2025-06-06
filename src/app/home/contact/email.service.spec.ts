@@ -291,6 +291,8 @@ describe('EmailService', () => {
     });
 
     it('should handle HTTP error with status 200', done => {
+      spyOn(console, 'error');
+
       (service as any)
         .sendWithFormsubmit('Test', 'test@example.com', 'message', true)
         .subscribe({
@@ -309,6 +311,8 @@ describe('EmailService', () => {
     });
 
     it('should handle HTTP error with status 0', done => {
+      spyOn(console, 'error');
+
       (service as any)
         .sendWithFormsubmit('Test', 'test@example.com', 'message', true)
         .subscribe({
@@ -327,6 +331,8 @@ describe('EmailService', () => {
     });
 
     it('should throw error for non-200/0 HTTP status codes', done => {
+      spyOn(console, 'error');
+
       (service as any)
         .sendWithFormsubmit('Test', 'test@example.com', 'message', true)
         .subscribe({
