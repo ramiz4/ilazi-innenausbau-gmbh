@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeroComponent } from './hero/hero.component';
+import { Component } from '@angular/core';
 import { AboutComponent } from './about/about.component';
-import { ReferencesComponent } from './references/references.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { PartnerComponent } from './partner/partner.component';
 import { ContactComponent } from './contact/contact.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { HeroComponent } from './hero/hero.component';
+import { PartnerComponent } from './partner/partner.component';
+import { ReferencesComponent } from './references/references.component';
 
 @Component({
   selector: 'app-home',

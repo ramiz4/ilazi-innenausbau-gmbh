@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -5,7 +6,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 interface Testimonial {
   quote: string;

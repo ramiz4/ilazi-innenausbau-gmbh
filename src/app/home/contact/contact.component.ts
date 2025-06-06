@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BehaviorSubject, Subject, Observable, EMPTY, timer } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import {
-  switchMap,
-  map,
   catchError,
-  startWith,
+  filter,
+  map,
   shareReplay,
+  startWith,
+  switchMap,
   takeUntil,
   tap,
-  filter,
 } from 'rxjs/operators';
 import { EmailService } from './email.service';
 

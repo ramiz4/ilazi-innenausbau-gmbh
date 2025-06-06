@@ -9,7 +9,8 @@
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
     "lint": "prettier --check \"src/**/*.{ts,html,scss,css,js,json}\"",
-    "lint:fix": "prettier --write \"src/**/*.{ts,html,scss,css,js,json}\""
+    "lint:fix": "npm run organize-imports && prettier --write \"src/**/*.{ts,html,scss,css,js,json}\"",
+    "organize-imports": "npx organize-imports-cli tsconfig.json"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +39,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "organize-imports-cli": "^0.10.0",
     "postcss": "^8.4.21",
     "prettier": "^3.5.3",
     "tailwindcss": "^3.2.7",

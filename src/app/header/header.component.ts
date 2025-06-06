@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
   Input,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AppService } from '../app.service';
 import { ThemeMenuComponent } from './theme-menu/theme-menu.component';
