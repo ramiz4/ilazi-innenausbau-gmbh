@@ -284,4 +284,168 @@ describe('ContactComponent', () => {
       });
     });
   });
+
+  describe('Branch Coverage Tests', () => {
+    it('should handle null/undefined form values with fallback values', fakeAsync(() => {
+      // Test the null coalescing operators (||) in sendEmail
+      // Mock the form value to return null values to test the || fallbacks
+      const originalValue = component.contactForm.value;
+      Object.defineProperty(component.contactForm, 'value', {
+        get: () => ({
+          name: null,
+          email: null,
+          message: null,
+          policy: null,
+        }),
+        configurable: true,
+      });
+
+      // Make form appear valid to pass the filter
+      Object.defineProperty(component.contactForm, 'valid', {
+        get: () => true,
+        configurable: true,
+      });
+
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+
+      component.onSubmit();
+      tick();
+
+      expect(emailService.sendEmail).toHaveBeenCalledWith('', '', '', false);
+
+      // Restore original value
+      Object.defineProperty(component.contactForm, 'value', {
+        get: () => originalValue,
+        configurable: true,
+      });
+    }));
+
+    it('should have policy field with requiredTrue validator', () => {
+      const policyControl = component.contactForm.get('policy');
+
+      // Test false value (should be invalid)
+      policyControl?.setValue(false);
+      expect(policyControl?.hasError('required')).toBeTruthy();
+
+      // Test true value (should be valid)
+      policyControl?.setValue(true);
+      expect(policyControl?.hasError('required')).toBeFalsy();
+    });
+
+    it('should trigger form reset only when submission is successful', fakeAsync(() => {
+      // Set up form with valid data
+      component.contactForm.patchValue({
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Test message',
+        policy: true,
+      });
+
+      spyOn(component['formResetTrigger$'], 'next');
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+
+      component.onSubmit();
+      tick();
+
+      expect(component['formResetTrigger$'].next).toHaveBeenCalled();
+    }));
+
+    it('should not trigger form reset when submission fails', fakeAsync(() => {
+      // Set up form with valid data
+      component.contactForm.patchValue({
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Test message',
+        policy: true,
+      });
+
+      spyOn(component['formResetTrigger$'], 'next');
+      spyOn(emailService, 'sendEmail').and.returnValue(
+        throwError(() => new Error('Network error'))
+      );
+
+      component.onSubmit();
+      tick();
+
+      expect(component['formResetTrigger$'].next).not.toHaveBeenCalled();
+    }));
+
+    it('should test sent$ observable timer behavior', fakeAsync(() => {
+      // Set up form with valid data
+      component.contactForm.patchValue({
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Test message',
+        policy: true,
+      });
+
+      spyOn(emailService, 'sendEmail').and.returnValue(of({}));
+      let sentStates: boolean[] = [];
+
+      component.sent$.subscribe(sent => {
+        sentStates.push(sent);
+      });
+
+      // Initially should be false
+      expect(sentStates[0]).toBe(false);
+
+      component.onSubmit();
+      tick();
+
+      // After successful submission, should be true initially
+      expect(sentStates.some(state => state === true)).toBe(true);
+
+      // After timer, should go back to false
+      tick(5000);
+      expect(sentStates[sentStates.length - 1]).toBe(false);
+    }));
+
+    it('should test sent$ observable when submission is not successful', fakeAsync(() => {
+      let sentStates: boolean[] = [];
+
+      component.sent$.subscribe(sent => {
+        sentStates.push(sent);
+      });
+
+      // Should remain false when no successful submission
+      tick(1000);
+      expect(sentStates.every(state => state === false)).toBe(true);
+    }));
+
+    it('should handle invalid form submission path in onSubmit', () => {
+      // Make form invalid
+      component.contactForm.patchValue({
+        name: '',
+        email: 'invalid-email',
+        message: '',
+        policy: false,
+      });
+
+      spyOn(component['submitTrigger$'], 'next');
+
+      component.onSubmit();
+
+      // submitTrigger$ should not be called when form is invalid
+      expect(component['submitTrigger$'].next).not.toHaveBeenCalled();
+    });
+
+    it('should filter out invalid form submissions in submissionState$', fakeAsync(() => {
+      spyOn(emailService, 'sendEmail');
+
+      // Make form invalid
+      component.contactForm.patchValue({
+        name: '',
+        email: '',
+        message: '',
+        policy: false,
+      });
+
+      // Trigger submission directly on the subject (to test filter)
+      component['submitTrigger$'].next();
+      tick();
+
+      // Email service should not be called due to filter
+      expect(emailService.sendEmail).not.toHaveBeenCalled();
+    }));
+  });
 });
