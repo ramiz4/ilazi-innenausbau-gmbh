@@ -15,7 +15,6 @@ export class PrivacyComponent {
     company: 'Ilazi Innenausbau GmbH',
     name: 'Adil Ilazi',
     address: ['Mellingerstr. 3', '5400 Baden'],
-    phone: '0760000000',
     email: 'info@ilazi-ausbau.ch',
   };
 

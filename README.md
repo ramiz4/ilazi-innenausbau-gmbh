@@ -172,7 +172,6 @@ npm run lint:fix    # Auto-fix issues
 
 **Ilazi Innenausbau GmbH**
 - 📍 Address: Boulevard Lilienthal 40, 8152 Opfikon Glattpark, Switzerland
-- 📞 Phone: +41 44 555 66 77
 - 📧 Email: info@ilazi-ausbau.ch
 - 🌐 Website: [ilazi-ausbau.ch](https://ilazi-ausbau.ch)
 
