@@ -384,6 +384,7 @@ describe('ContactComponent', () => {
       spyOn(emailService, 'sendEmail').and.returnValue(
         throwError(() => new Error('Network error'))
       );
+      spyOn(console, 'error');
 
       component.onSubmit();
       tick();
