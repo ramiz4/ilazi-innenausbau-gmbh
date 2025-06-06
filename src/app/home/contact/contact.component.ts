@@ -1,31 +1,102 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BehaviorSubject, Subject, Observable, EMPTY, timer } from 'rxjs';
+import {
+  switchMap,
+  map,
+  catchError,
+  startWith,
+  shareReplay,
+  takeUntil,
+  tap,
+  filter,
+} from 'rxjs/operators';
 import { EmailService } from './email.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   imports: [CommonModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactComponent {
-  privacyPolicyAgreed = false;
+export class ContactComponent implements OnDestroy {
+  private readonly destroy$ = new Subject<void>();
+  private readonly submitTrigger$ = new Subject<void>();
 
-  contactForm = this.formBuilder.group({
+  readonly contactForm = this.formBuilder.group({
     name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     message: ['', [Validators.required]],
     policy: [false, Validators.requiredTrue],
   });
 
-  error?: string;
+  // Reactive state streams
+  private readonly submissionState$ = this.submitTrigger$.pipe(
+    filter(() => this.contactForm.valid),
+    switchMap(() => {
+      const formValue = this.contactForm.value;
+      return this.emailService
+        .sendEmail(
+          formValue.name || '',
+          formValue.email || '',
+          formValue.message || '',
+          formValue.policy || false
+        )
+        .pipe(
+          map(() => ({ success: true, error: null, loading: false })),
+          catchError(error => {
+            console.error(error);
+            return [
+              {
+                success: false,
+                error:
+                  'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.',
+                loading: false,
+              },
+            ];
+          }),
+          startWith({ success: false, error: null, loading: true })
+        );
+    }),
+    startWith({ success: false, error: null, loading: false }),
+    shareReplay(1)
+  );
 
-  sent = false;
+  // Derived observables for template
+  readonly loading$ = this.submissionState$.pipe(map(state => state.loading));
+
+  readonly error$ = this.submissionState$.pipe(map(state => state.error));
+
+  readonly sent$ = this.submissionState$.pipe(
+    switchMap(state =>
+      state.success
+        ? timer(0, 5000).pipe(
+            map(tick => tick === 0),
+            takeUntil(this.submitTrigger$)
+          )
+        : [false]
+    )
+  );
+
+  // Form reset effect
+  private readonly formResetEffect$ = this.submissionState$
+    .pipe(
+      filter(state => state.success),
+      tap(() => this.contactForm.reset()),
+      takeUntil(this.destroy$)
+    )
+    .subscribe();
 
   constructor(
     private formBuilder: FormBuilder,
     private emailService: EmailService
   ) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   get name() {
     return this.contactForm.get('name');
@@ -43,38 +114,9 @@ export class ContactComponent {
     return this.contactForm.get('policy');
   }
 
-  togglePrivacyPolicyAgreement() {
-    this.privacyPolicyAgreed = !this.privacyPolicyAgreed;
-  }
-
   onSubmit(): void {
-    this.error = undefined;
-
-    const name = this.name?.value ?? '';
-    const email = this.email?.value ?? '';
-    const message = this.message?.value ?? '';
-    const policy = this.policy?.value ?? '';
-
-    if (!policy) {
-      console.warn('policy not accepted!');
-      this.error = 'Datenschutzerklärung muss zugestimmt werden.';
-      return;
+    if (this.contactForm.valid) {
+      this.submitTrigger$.next();
     }
-
-    this.emailService.sendEmail(name, email, message, policy).subscribe({
-      next: v => {
-        console.log(v);
-        this.contactForm.reset();
-        this.sent = true;
-        setTimeout(() => {
-          this.sent = false;
-        }, 5000);
-      },
-      error: e => {
-        console.error(e);
-        this.error = 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.';
-      },
-      complete: () => console.info('complete'),
-    });
   }
 }

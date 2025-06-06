@@ -284,7 +284,7 @@
 
           <!-- Error Message -->
           <div
-            *ngIf="error"
+            *ngIf="error$ | async as error"
             class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
           >
             <div class="flex items-center">
@@ -307,7 +307,7 @@
 
           <!-- Success Message -->
           <div
-            *ngIf="sent"
+            *ngIf="sent$ | async"
             class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
           >
             <div class="flex items-center">
@@ -332,12 +332,34 @@
           <div class="pt-4">
             <button
               type="submit"
-              [disabled]="!contactForm.valid"
+              [disabled]="!contactForm.valid || (loading$ | async)"
               class="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 dark:focus:ring-offset-neutral-800"
             >
               <span class="flex items-center justify-center">
+                <!-- Loading Spinner -->
                 <svg
-                  *ngIf="!contactForm.valid"
+                  *ngIf="loading$ | async"
+                  class="w-5 h-5 mr-2 animate-spin"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                <!-- Invalid Form Icon -->
+                <svg
+                  *ngIf="!contactForm.valid && !(loading$ | async)"
                   class="w-5 h-5 mr-2"
                   fill="none"
                   stroke="currentColor"
@@ -350,8 +372,9 @@
                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                   />
                 </svg>
+                <!-- Valid Form Icon -->
                 <svg
-                  *ngIf="contactForm.valid"
+                  *ngIf="contactForm.valid && !(loading$ | async)"
                   class="w-5 h-5 mr-2"
                   fill="none"
                   stroke="currentColor"
@@ -364,7 +387,8 @@
                     d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                   />
                 </svg>
-                Nachricht senden
+                <span *ngIf="loading$ | async">Wird gesendet...</span>
+                <span *ngIf="!(loading$ | async)">Nachricht senden</span>
               </span>
             </button>
           </div>
