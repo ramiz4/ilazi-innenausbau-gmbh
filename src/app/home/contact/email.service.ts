@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import emailjs from '@emailjs/browser';
-import { Observable, from } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface Group {
