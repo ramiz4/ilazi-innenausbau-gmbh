@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, timer } from 'rxjs';
 import {
@@ -20,9 +20,10 @@ import { EmailService } from './email.service';
   imports: [CommonModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactComponent {
+export class ContactComponent implements OnDestroy {
   private readonly submitTrigger$ = new Subject<void>();
   private readonly formResetTrigger$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
   readonly contactForm = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -88,7 +89,27 @@ export class ContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private emailService: EmailService
-  ) {}
+  ) {
+    // Subscribe to form reset trigger
+    this.formResetTrigger$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.contactForm.reset();
+      // Reset form values to initial state
+      this.contactForm.patchValue({
+        name: '',
+        email: '',
+        message: '',
+        policy: false,
+      });
+      // Mark form as pristine and untouched
+      this.contactForm.markAsPristine();
+      this.contactForm.markAsUntouched();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   get name() {
     return this.contactForm.get('name');
