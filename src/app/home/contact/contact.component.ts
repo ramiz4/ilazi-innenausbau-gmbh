@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BehaviorSubject, Subject, Observable, EMPTY, timer } from 'rxjs';
 import {
@@ -20,9 +20,9 @@ import { EmailService } from './email.service';
   imports: [CommonModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactComponent implements OnDestroy {
-  private readonly destroy$ = new Subject<void>();
+export class ContactComponent {
   private readonly submitTrigger$ = new Subject<void>();
+  private readonly formResetTrigger$ = new Subject<void>();
 
   readonly contactForm = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -56,7 +56,13 @@ export class ContactComponent implements OnDestroy {
               },
             ];
           }),
-          startWith({ success: false, error: null, loading: true })
+          startWith({ success: false, error: null, loading: true }),
+          tap(state => {
+            // Trigger form reset when submission is successful
+            if (state.success) {
+              this.formResetTrigger$.next();
+            }
+          })
         );
     }),
     startWith({ success: false, error: null, loading: false }),
@@ -79,24 +85,10 @@ export class ContactComponent implements OnDestroy {
     )
   );
 
-  // Form reset effect
-  private readonly formResetEffect$ = this.submissionState$
-    .pipe(
-      filter(state => state.success),
-      tap(() => this.contactForm.reset()),
-      takeUntil(this.destroy$)
-    )
-    .subscribe();
-
   constructor(
     private formBuilder: FormBuilder,
     private emailService: EmailService
   ) {}
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   get name() {
     return this.contactForm.get('name');
