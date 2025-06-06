@@ -10,7 +10,6 @@ import { ContactComponent } from './contact/contact.component';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    standalone: true,
     imports: [
         CommonModule,
         HeroComponent,

@@ -15,7 +15,6 @@ interface Partner {
     selector: 'app-partner',
     templateUrl: './partner.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule]
 })
 export class PartnerComponent {

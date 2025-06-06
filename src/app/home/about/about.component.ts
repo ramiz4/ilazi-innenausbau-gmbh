@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
     selector: 'app-about',
     templateUrl: './about.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule]
 })
 export class AboutComponent {}

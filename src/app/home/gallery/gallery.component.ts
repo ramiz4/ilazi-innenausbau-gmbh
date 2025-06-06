@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
     selector: 'app-gallery',
     templateUrl: './gallery.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule]
 })
 export class GalleryComponent {

@@ -9,7 +9,6 @@ import { SafeHtmlPipe } from '../safe-html.pipe';
     selector: 'app-footer',
     templateUrl: './footer.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule, RouterModule, SafeHtmlPipe]
 })
 export class FooterComponent {

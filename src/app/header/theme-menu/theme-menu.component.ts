@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
     selector: 'app-theme-menu',
     templateUrl: './theme-menu.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule]
 })
 export class ThemeMenuComponent {

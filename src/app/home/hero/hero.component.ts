@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
     selector: 'app-hero',
     templateUrl: './hero.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule]
 })
 export class HeroComponent {}

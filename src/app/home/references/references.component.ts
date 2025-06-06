@@ -81,7 +81,6 @@ interface Testimonial {
       }
     `,
     ],
-    standalone: true,
     imports: [CommonModule]
 })
 export class ReferencesComponent implements OnInit, OnDestroy {

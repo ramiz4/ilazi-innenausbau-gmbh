@@ -7,7 +7,6 @@ import { EmailService } from './email.service';
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule]
 })
 export class ContactComponent {

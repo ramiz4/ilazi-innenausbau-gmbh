@@ -13,7 +13,6 @@ import { ThemeMenuComponent } from './theme-menu/theme-menu.component';
     selector: 'app-header',
     templateUrl: './header.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [CommonModule, RouterModule, ThemeMenuComponent]
 })
 export class HeaderComponent {
