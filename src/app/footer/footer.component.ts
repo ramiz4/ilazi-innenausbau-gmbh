@@ -15,8 +15,7 @@ export class FooterComponent {
   @Input() logo = '';
 
   contactInfo = {
-    address: 'Musterstraße 123, 8000 Zürich, Schweiz',
-    phone: '+41 44 123 45 67',
+    address: 'Boulevard Lilienthal 40 8152 Opfikon Glattpark, Schweiz',
     email: 'info@ilazi-innenausbau.ch',
   };
 
