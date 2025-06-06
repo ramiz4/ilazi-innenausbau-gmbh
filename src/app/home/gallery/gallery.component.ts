@@ -8,5 +8,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [CommonModule],
 })
 export class GalleryComponent {
-  images = [];
+  images: string[] = [];
 }

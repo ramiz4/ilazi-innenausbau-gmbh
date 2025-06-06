@@ -4,9 +4,14 @@
   [class.hidden]="isMenuOpened"
 >
   <div class="flex items-center justify-between">
-    <a routerLink="/">
+    <a routerLink="/" data-test="brand-link">
       <span class="sr-only">Ilazi Innenausbau GmbH</span>
-      <img class="h-16 md:h-20" [src]="logo" alt="Ilazi Innenausbau GmbH" />
+      <img
+        class="h-16 md:h-20"
+        [src]="logo"
+        alt="Ilazi Innenausbau GmbH"
+        data-test="brand"
+      />
     </a>
   </div>
   <nav class="flex justify-between items-center gap-8" aria-label="Global">
@@ -16,6 +21,7 @@
           [routerLink]="menuItem.href"
           [fragment]="menuItem.id"
           class="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50"
+          [attr.data-test]="'menu-item-' + menuItem.id"
         >
           {{ menuItem.text }}
         </a>
@@ -24,12 +30,15 @@
     <app-theme-menu
       class="justify-end"
       (changed)="onChangeTheme()"
+      data-test="desktop-theme-toggle"
     ></app-theme-menu>
     <div class="flex justify-end lg:hidden">
       <button
         type="button"
         class="-m-2.5 inline-flex items-center justify-center p-2.5 text-zinc-700 dark:text-zinc-50"
-        (click)="isMenuOpened = !isMenuOpened"
+        (click)="toggleMobileMenu()"
+        data-test="mobile-menu-toggle"
+        aria-label="Open mobile menu"
       >
         <span class="sr-only">Open menu</span>
         <svg
@@ -57,6 +66,7 @@
     focus="true"
     class="fixed h-fit inset-0 z-10 overflow-y-auto bg-white shadow-md px-6 py-4 lg:hidden dark:bg-neutral-900"
     [class.hidden]="!isMenuOpened"
+    data-test="mobile-menu"
   >
     <div class="flex items-center justify-between">
       <a routerLink="/">
@@ -66,7 +76,8 @@
       <button
         type="button"
         class="-m-2.5 p-2.5 text-zinc-700 dark:text-zinc-50"
-        (click)="isMenuOpened = !isMenuOpened"
+        (click)="closeMobileMenu()"
+        aria-label="Close mobile menu"
       >
         <span class="sr-only">Close menu</span>
         <svg
@@ -93,6 +104,8 @@
               [routerLink]="menuItem.href"
               [fragment]="menuItem.id"
               class="-mx-3 block py-2 px-3 text-base font-semibold leading-7 text-zinc-900 hover:bg-zinc-400/10 dark:text-zinc-50"
+              (click)="closeMobileMenu()"
+              [attr.data-test]="'mobile-menu-item-' + menuItem.id"
             >
               {{ menuItem.text }}
             </a>

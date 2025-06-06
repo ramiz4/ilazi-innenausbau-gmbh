@@ -39,4 +39,12 @@ export class HeaderComponent {
       ? 'dark'
       : 'light';
   }
+
+  toggleMobileMenu() {
+    this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  closeMobileMenu() {
+    this.isMenuOpened = false;
+  }
 }

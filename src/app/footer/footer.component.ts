@@ -23,7 +23,7 @@ export class FooterComponent {
     return new Date().getFullYear();
   }
 
-  sections: FooterSection[] = [
+  footerSections: FooterSection[] = [
     {
       id: 'company',
       title: 'Unternehmen',
@@ -86,7 +86,7 @@ export class FooterComponent {
   ];
 
   get socialLinks() {
-    return this.sections.find(x => x.id === 'social-links')?.menuItems;
+    return this.footerSections.find(x => x.id === 'social-links')?.menuItems;
   }
 
   constructor(private appService: AppService) {}
