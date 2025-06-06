@@ -40,7 +40,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: dist/ilazi-innenausbau-gmbh
+        path: dist/ilazi-innenausbau-gmbh/browser
 
   deploy:
     runs-on: ubuntu-latest
