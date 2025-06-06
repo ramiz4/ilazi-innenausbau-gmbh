@@ -38,7 +38,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(htmlString);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(sanitizer.bypassSecurityTrustHtml(htmlString));
+    expect(result).toEqual(sanitizer.bypassSecurityTrustHtml(htmlString));
   });
 
   it('should handle complex HTML with attributes', () => {
@@ -47,7 +47,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(complexHtml);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(sanitizer.bypassSecurityTrustHtml(complexHtml));
+    expect(result).toEqual(sanitizer.bypassSecurityTrustHtml(complexHtml));
   });
 
   it('should handle HTML with special characters', () => {
@@ -56,7 +56,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(htmlWithSpecialChars);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(
+    expect(result).toEqual(
       sanitizer.bypassSecurityTrustHtml(htmlWithSpecialChars)
     );
   });
@@ -66,7 +66,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(plainText);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(sanitizer.bypassSecurityTrustHtml(plainText));
+    expect(result).toEqual(sanitizer.bypassSecurityTrustHtml(plainText));
   });
 
   it('should handle whitespace-only strings', () => {
@@ -74,7 +74,7 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(whitespaceString);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(sanitizer.bypassSecurityTrustHtml(whitespaceString));
+    expect(result).toEqual(sanitizer.bypassSecurityTrustHtml(whitespaceString));
   });
 
   it('should handle HTML with line breaks', () => {
@@ -85,7 +85,9 @@ describe('SafeHtmlPipe', () => {
     const result = pipe.transform(htmlWithLineBreaks);
 
     expect(result).toBeTruthy();
-    expect(result).toBe(sanitizer.bypassSecurityTrustHtml(htmlWithLineBreaks));
+    expect(result).toEqual(
+      sanitizer.bypassSecurityTrustHtml(htmlWithLineBreaks)
+    );
   });
 
   it('should call DomSanitizer.bypassSecurityTrustHtml with the correct value', () => {
